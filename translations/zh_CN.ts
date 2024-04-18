@@ -2,6 +2,15 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN">
 <context>
+    <name>:</name>
+    <message>
+        <location filename="../src/apt-private/acqprogress.cc" line="76"/>
+        <source></source>
+        <comment>%s is e.g. Tor&apos;s &quot;.onion&quot; which would likely fail or leak info (RFC7686)</comment>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>AppPage</name>
     <message>
         <location filename="../qml/AppPage.qml" line="42"/>
@@ -65,62 +74,60 @@
 <context>
     <name>DebInstaller</name>
     <message>
-        <location filename="../src/debinstaller.cpp" line="257"/>
+        <location filename="../src/debinstaller.cpp" line="261"/>
         <source>Error: Wrong architecture %1</source>
         <translation>错误的架构: %1</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="274"/>
+        <location filename="../src/debinstaller.cpp" line="278"/>
         <source>Error: Breaks the existing package %1</source>
         <translation>错误: 打破现有软件包 %1</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="282"/>
         <source>Error: Cannot satisfy dependencies</source>
-        <translation>错误: 不能满足依赖关系</translation>
+        <translation type="vanished">错误: 不能满足依赖关系</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="290"/>
+        <location filename="../src/debinstaller.cpp" line="298"/>
         <source>Requires the installation of %1 additional package.</source>
         <translation>需要安装 %1 额外的软件包</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="292"/>
         <source>All dependencies are satisfied.</source>
-        <translation>所有的依赖得到满足</translation>
+        <translation type="vanished">所有的依赖得到满足</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="480"/>
+        <location filename="../src/debinstaller.cpp" line="506"/>
         <source>Starting</source>
         <translation>准备中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="486"/>
+        <location filename="../src/debinstaller.cpp" line="512"/>
         <source>Waiting</source>
         <translation>等待中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="492"/>
+        <location filename="../src/debinstaller.cpp" line="518"/>
         <source>Installing</source>
         <translation>安装中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="498"/>
+        <location filename="../src/debinstaller.cpp" line="524"/>
         <source>Loading Cache</source>
         <translation>加载缓存中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="503"/>
+        <location filename="../src/debinstaller.cpp" line="529"/>
         <source>Downloading Packages</source>
         <translation>下载软件包中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="516"/>
+        <location filename="../src/debinstaller.cpp" line="542"/>
         <source>Installation successful</source>
         <translation>安装成功</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="531"/>
+        <location filename="../src/debinstaller.cpp" line="557"/>
         <source>Installation failed</source>
         <translation>安装失败</translation>
     </message>
@@ -141,9 +148,18 @@
 <context>
     <name>InstallPage</name>
     <message>
-        <location filename="../qml/InstallPage.qml" line="81"/>
+        <location filename="../qml/InstallPage.qml" line="90"/>
         <source>Quit</source>
         <translation>退出</translation>
+    </message>
+</context>
+<context>
+    <name>S:</name>
+    <message>
+        <location filename="../src/apt-private/private-cacheset.cc" line="410"/>
+        <source></source>
+        <comment>The second %s is the reason and is untranslated for repository owners.</comment>
+        <translation></translation>
     </message>
 </context>
 <context>

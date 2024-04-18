@@ -15,7 +15,10 @@ set(CMAKE_MODULE_PATH
 
 find_package(Qt5 COMPONENTS Core Widgets Quick LinguistTools REQUIRED)
 find_package(QApt REQUIRED)
-find_package(AptPkg REQUIRED)
+# find_package(AptPkg REQUIRED)
+
+add_subdirectory(thirdparty/Apt EXCLUDE_FROM_ALL)
+include_directories(thirdparty/Apt)
 
 # Find the required Libaries
 include_directories(
@@ -24,6 +27,7 @@ include_directories(
 set(PROJECT_SOURCES
         src/main.cpp
         src/debinstaller.cpp
+        src/aptcli.cpp
         qml.qrc
 )
 
@@ -37,7 +41,8 @@ target_link_libraries(lingmo-debinstaller
   Qt5::Widgets
   Qt5::Quick
   QApt
-  ${APTPKG_LIBRARIES}
+  apt-pkg
+  apt-private
 )
 
 file(GLOB TS_FILES translations/*.ts)
@@ -46,8 +51,7 @@ foreach(filepath ${TS_FILES})
     list(APPEND ts_files_replaced ${filename})
 endforeach()
 qt5_create_translation(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${ts_files_replaced})
-add_custom_target(translations DEPENDS ${QM_FILES} SOURCES ${TS_FILES})
-add_dependencies(lingmo-debinstaller translations)
+add_custom_target(translations ALL DEPENDS ${QM_FILES} SOURCES ${TS_FILES})
 
 install(FILES ${QM_FILES} DESTINATION /usr/share/lingmo-debinstaller/translations)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

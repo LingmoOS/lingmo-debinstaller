@@ -24,6 +24,7 @@
 #include <QStringBuilder>
 
 #include <QApt/Backend>
+#include <QApt/Package>
 #include <apt-pkg/debversion.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/version.h>
@@ -426,74 +427,74 @@ QApt::Package *DebInstaller::checkBreaksSystem()
 
 bool DebInstaller::satisfyDepends()
 {
-    foreach(const QApt::DependencyItem &item, m_debFile->depends()) {
-        foreach (const QApt::DependencyInfo &dep, item) {
-            const QString &packageName = maybeAppendArchSuffix(dep.packageName());
-            QApt::Package *pkg = m_backend->package(packageName);
-
-            if (!pkg)
-                continue;
-
-            if (pkg->isInstalled())
-                continue;
-
-            m_backend->markPackageForInstall(packageName);
-        }
-    }
-
-    return true;
-
-//    QApt::Package *pkg = 0;
-//    QString packageName;
-
 //    foreach(const QApt::DependencyItem &item, m_debFile->depends()) {
-//        bool oneSatisfied = false;
 //        foreach (const QApt::DependencyInfo &dep, item) {
-//            packageName = maybeAppendArchSuffix(dep.packageName());
-//            pkg = m_backend->package(packageName);
+//            const QString &packageName = maybeAppendArchSuffix(dep.packageName());
+//            QApt::Package *pkg = m_backend->package(packageName);
 
-//            if (!pkg) {
-//                // FIXME: virtual package handling
+//            if (!pkg)
 //                continue;
-//            }
 
-//            std::string debVersion = dep.packageVersion().toStdString();
-
-//            // If we're installed, see if we already satisfy the dependency
-//            if (pkg->isInstalled()) {
-//                std::string pkgVersion = pkg->installedVersion().toStdString();
-
-//                if (_system->VS->CheckDep(pkgVersion.c_str(),
-//                                          dep.relationType(),
-//                                          debVersion.c_str())) {
-//                    oneSatisfied = true;
-//                    break;
-//                }
-//            }
-
-//            // else check if cand ver will satisfy, then mark
-//            std::string candVersion = pkg->availableVersion().toStdString();
-
-//            if (!_system->VS->CheckDep(candVersion.c_str(),
-//                                       dep.relationType(),
-//                                       debVersion.c_str())) {
+//            if (pkg->isInstalled())
 //                continue;
-//            }
 
-//            pkg->setInstall();
-
-//            if (!pkg->wouldBreak()) {
-//                oneSatisfied = true;
-//                break;
-//            }
-//        }
-
-//        if (!oneSatisfied) {
-//            return false;
+//            m_backend->markPackageForInstall(packageName);
 //        }
 //    }
 
 //    return true;
+
+    QApt::Package *pkg = 0;
+    QString packageName;
+
+    foreach(const QApt::DependencyItem &item, m_debFile->depends()) {
+        bool oneSatisfied = false;
+        foreach (const QApt::DependencyInfo &dep, item) {
+            packageName = maybeAppendArchSuffix(dep.packageName());
+            pkg = m_backend->package(packageName);
+
+            if (!pkg) {
+                // FIXME: virtual package handling
+                continue;
+            }
+
+            std::string debVersion = dep.packageVersion().toStdString();
+
+            // If we're installed, see if we already satisfy the dependency
+            if (pkg->isInstalled()) {
+                std::string pkgVersion = pkg->installedVersion().toStdString();
+
+                if (_system->VS->CheckDep(pkgVersion.c_str(),
+                                          dep.relationType(),
+                                          debVersion.c_str())) {
+                    oneSatisfied = true;
+                    break;
+                }
+            }
+
+            // else check if cand ver will satisfy, then mark
+            std::string candVersion = pkg->availableVersion().toStdString();
+
+            if (!_system->VS->CheckDep(candVersion.c_str(),
+                                       dep.relationType(),
+                                       debVersion.c_str())) {
+                continue;
+            }
+
+            pkg->setInstall();
+
+            if (!pkg->wouldBreak()) {
+                oneSatisfied = true;
+                break;
+            }
+        }
+
+        if (!oneSatisfied) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void DebInstaller::transactionStatusChanged(QApt::TransactionStatus status)

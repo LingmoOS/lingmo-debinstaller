@@ -2,6 +2,15 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>:</name>
+    <message>
+        <location filename="../src/apt-private/acqprogress.cc" line="76"/>
+        <source></source>
+        <comment>%s is e.g. Tor&apos;s &quot;.onion&quot; which would likely fail or leak info (RFC7686)</comment>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>AppPage</name>
     <message>
         <location filename="../qml/AppPage.qml" line="42"/>
@@ -57,62 +66,52 @@
 <context>
     <name>DebInstaller</name>
     <message>
-        <location filename="../src/debinstaller.cpp" line="257"/>
+        <location filename="../src/debinstaller.cpp" line="261"/>
         <source>Error: Wrong architecture %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="274"/>
+        <location filename="../src/debinstaller.cpp" line="278"/>
         <source>Error: Breaks the existing package %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="282"/>
-        <source>Error: Cannot satisfy dependencies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/debinstaller.cpp" line="290"/>
+        <location filename="../src/debinstaller.cpp" line="298"/>
         <source>Requires the installation of %1 additional package.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="292"/>
-        <source>All dependencies are satisfied.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/debinstaller.cpp" line="480"/>
+        <location filename="../src/debinstaller.cpp" line="506"/>
         <source>Starting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="486"/>
+        <location filename="../src/debinstaller.cpp" line="512"/>
         <source>Waiting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="492"/>
+        <location filename="../src/debinstaller.cpp" line="518"/>
         <source>Installing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="498"/>
+        <location filename="../src/debinstaller.cpp" line="524"/>
         <source>Loading Cache</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="503"/>
+        <location filename="../src/debinstaller.cpp" line="529"/>
         <source>Downloading Packages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="516"/>
+        <location filename="../src/debinstaller.cpp" line="542"/>
         <source>Installation successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="531"/>
+        <location filename="../src/debinstaller.cpp" line="557"/>
         <source>Installation failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -133,9 +132,18 @@
 <context>
     <name>InstallPage</name>
     <message>
-        <location filename="../qml/InstallPage.qml" line="81"/>
+        <location filename="../qml/InstallPage.qml" line="90"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>S:</name>
+    <message>
+        <location filename="../src/apt-private/private-cacheset.cc" line="410"/>
+        <source></source>
+        <comment>The second %s is the reason and is untranslated for repository owners.</comment>
+        <translation></translation>
     </message>
 </context>
 <context>

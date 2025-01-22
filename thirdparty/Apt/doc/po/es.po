@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: apt-doc 1.0.5\n"
 "Report-Msgid-Bugs-To: APT Development Team <deity@lists.debian.org>\n"
-"POT-Creation-Date: 2024-04-12 18:21+0000\n"
+"POT-Creation-Date: 2023-02-08 17:09+0100\n"
 "PO-Revision-Date: 2014-07-04 01:31+0200\n"
 "Last-Translator: Omar Campagne <ocampagne@gmail.com>\n"
 "Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -90,7 +90,7 @@ msgid ""
 "<!-- Boiler plate Bug reporting section -->\n"
 "<!ENTITY manbugs \"\n"
 " <refsect1><title>Bugs</title>\n"
-"   <para><ulink url='https://bugs.debian.org/src:apt'>APT bug page</ulink>.\n"
+"   <para><ulink url='http://bugs.debian.org/src:apt'>APT bug page</ulink>.\n"
 "   If you wish to report a bug in APT, please see\n"
 "   <filename>/usr/share/doc/debian/bug-reporting.txt</filename> or the\n"
 "   &reportbug; command.\n"
@@ -101,7 +101,7 @@ msgstr ""
 "<!-- Boiler plate Bug reporting section -->\n"
 "<!ENTITY manbugs \"\n"
 " <refsect1><title>Bugs</title>\n"
-"   <para><ulink url='https://bugs.debian.org/src:apt'>Página de errores de APT</ulink>. \n"
+"   <para><ulink url='http://bugs.debian.org/src:apt'>Página de errores de APT</ulink>. \n"
 "   Si quiere informar de un error en APT, consulte\n"
 "   <filename>/usr/share/doc/debian/bug-reporting.txt</filename> o use la orden\n"
 "   &reportbug;.\n"
@@ -784,13 +784,6 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.8.xml apt-get.8.xml
-msgid ""
-"When a package is supplied as an argument, the package will be installed "
-"prior to the upgrade action."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt.8.xml
 msgid ""
 "<literal>full-upgrade</literal> performs the function of upgrade but will "
@@ -922,10 +915,10 @@ msgstr ""
 msgid ""
 "<option>list</option> is somewhat similar to <command>dpkg-query --list</"
 "command> in that it can display a list of packages satisfying certain "
-"criteria.  It supports &glob; patterns for matching package names, &apt-"
-"patterns;, as well as options to list installed (<option>--installed</"
-"option>), upgradeable (<option>--upgradeable</option>)  or all available "
-"(<option>--all-versions</option>) versions."
+"criteria.  It supports &glob; patterns for matching package names as well as "
+"options to list installed (<option>--installed</option>), upgradeable "
+"(<option>--upgradeable</option>) or all available (<option>--all-versions</"
+"option>) versions."
 msgstr ""
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
@@ -939,20 +932,6 @@ msgid ""
 "<literal>edit-sources</literal> lets you edit your &sources-list; files in "
 "your preferred text editor while also providing basic sanity checks."
 msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
-#: apt.8.xml
-#, fuzzy
-#| msgid "(&apt-cache;)"
-msgid "(summarised in &apt-cache;)"
-msgstr "(&apt-cache;)"
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
-#: apt.8.xml
-#, fuzzy
-#| msgid "(&apt-get;)"
-msgid "(summarised in &apt-get;)"
-msgstr "(&apt-get;)"
 
 #. type: Content of: <refentry><refsect1><title>
 #: apt.8.xml
@@ -990,14 +969,18 @@ msgstr "Véase también"
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt.8.xml
+#, fuzzy
+#| msgid ""
+#| "&apt-cache;, &apt-cdrom;, &dpkg;, &dselect;, &sources-list;, &apt-conf;, "
+#| "&apt-config;, &apt-secure;, The APT User's guide in &guidesdir;, &apt-"
+#| "preferences;, the APT Howto."
 msgid ""
-"&apt-get;, &apt-cache;, &sources-list;, &apt-conf;, &apt-config;, &apt-"
-"patterns;, The APT User's guide in &guidesdir;, &apt-preferences;, the APT "
-"Howto."
+"&apt-get;, &apt-cache;, &sources-list;, &apt-conf;, &apt-config;, The APT "
+"User's guide in &guidesdir;, &apt-preferences;, the APT Howto."
 msgstr ""
-"&apt-get;, &apt-cache;, &sources-list;, &apt-conf;, &apt-config;, &apt-"
-"patterns;, la guía de usuario de APT en &guidesdir;, &apt-preferences;, el "
-"Cómo de APT."
+"&apt-cache;, &apt-cdrom;, &dpkg;, &dselect;, &sources-list;, &apt-conf;, "
+"&apt-config;, &apt-secure;, la guía de usuario de APT en &guidesdir;, &apt-"
+"preferences;, el Cómo de APT."
 
 #. type: Content of: <refentry><refsect1><title>
 #: apt.8.xml apt-get.8.xml apt-cache.8.xml apt-mark.8.xml apt-cdrom.8.xml
@@ -1496,20 +1479,6 @@ msgstr ""
 "opción de configuración <literal>APT::Clean-Installed</literal> está "
 "desactivada impedirá que se borren los paquetes instalados."
 
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
-#: apt-get.8.xml
-msgid "alias)"
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-get.8.xml
-msgid ""
-"<literal>distclean</literal> removes all files under <filename>&statedir;/"
-"lists</filename> except Release, Release.gpg, and InRelease.  It can be used "
-"for example, when finalizing images distributed to users.  The release files "
-"are kept for security reasons, to prevent various types of attacks."
-msgstr ""
-
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt-get.8.xml
 msgid ""
@@ -1775,21 +1744,6 @@ msgid ""
 msgstr ""
 "Muestra las versiones completas para los paquetes actualizados e instalados. "
 "Opción de configuración: <literal>APT::Get::Show-Versions</literal>."
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-get.8.xml
-#, fuzzy
-#| msgid ""
-#| "Re-install packages that are already installed and at the newest "
-#| "version.  Configuration Item: <literal>APT::Get::ReInstall</literal>."
-msgid ""
-"Display package lists without arranging them in columns. By default, package "
-"lists are printed in the style of the \"ls\" command.  Configuration Item: "
-"<literal>APT::Get::List-Columns</literal>."
-msgstr ""
-"Reinstala los paquetes ya instalados, incluso si son la última versión "
-"disponible del paquete. Opción de configuración: <literal>APT::Get::"
-"ReInstall</literal>."
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt-get.8.xml
@@ -2063,16 +2017,6 @@ msgstr ""
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt-get.8.xml
 msgid ""
-"This option controls the snapshot chosen for archives with "
-"<literal>Snapshot: enable</literal> in the source entry. For example, "
-"<option>-S 20220102T030405Z</option> selects a snapshot from January 2nd, "
-"2022 at 03:04:05 UTC.  Configuration Item: <literal>APT::Snapshot</literal>; "
-"see also the &sources-list; manual page."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-get.8.xml
-msgid ""
 "This option controls the default input to the policy engine; it creates a "
 "default pin at priority 990 using the specified release string.  This "
 "overrides the general settings in <filename>/etc/apt/preferences</"
@@ -2264,27 +2208,6 @@ msgstr ""
 msgid "Fail the update command if any error occured, even a transient one."
 msgstr ""
 
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-get.8.xml
-msgid ""
-"Run the <option>update</option> command before the specified command. This "
-"is supported for commands installing, removing, or upgrading packages such "
-"as <option>install</option>, <option>remove</option>, <option>safe-upgrade</"
-"option>, <option>full-upgrade</option>.  This can be useful to ensure a "
-"command always installs the latest versions, or, in combination with the "
-"<option>--snapshot</option> option to make sure the snapshot is present when "
-"install is being run."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-get.8.xml
-msgid ""
-"Caveat: Due to technical limitations, locks are acquired individually for "
-"each phase, hence an install may fail to acquire locks after successfully "
-"executing the update. Until this is resolved, this is merely syntactic sugar "
-"for <literal>apt update &amp;&amp; apt install</literal>"
-msgstr ""
-
 #. type: Content of: <refentry><refsect1><title>
 #: apt-get.8.xml apt-cache.8.xml apt-key.8.xml apt-mark.8.xml apt.conf.5.xml
 #: apt_preferences.5.xml apt_auth.conf.5.xml
@@ -2293,14 +2216,19 @@ msgstr "Ficheros"
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt-get.8.xml
+#, fuzzy
+#| msgid ""
+#| "&apt-cache;, &apt-cdrom;, &dpkg;, &dselect;, &sources-list;, &apt-conf;, "
+#| "&apt-config;, &apt-secure;, The APT User's guide in &guidesdir;, &apt-"
+#| "preferences;, the APT Howto."
 msgid ""
-"&apt-cache;, &apt-cdrom;, &dpkg;, &sources-list;, &apt-conf;, &apt-"
-"patterns;, &apt-config;, &apt-secure;, The APT User's guide in &guidesdir;, "
-"&apt-preferences;, the APT Howto."
+"&apt-cache;, &apt-cdrom;, &dpkg;, &sources-list;, &apt-conf;, &apt-config;, "
+"&apt-secure;, The APT User's guide in &guidesdir;, &apt-preferences;, the "
+"APT Howto."
 msgstr ""
-"&apt-cache;, &apt-cdrom;, &dpkg;, &sources-list;, &apt-conf;, &apt-"
-"patterns;, &apt-config;, &apt-secure;, la guía de usuario de APT en "
-"&guidesdir;, &apt-preferences;, el Cómo de APT."
+"&apt-cache;, &apt-cdrom;, &dpkg;, &dselect;, &sources-list;, &apt-conf;, "
+"&apt-config;, &apt-secure;, la guía de usuario de APT en &guidesdir;, &apt-"
+"preferences;, el Cómo de APT."
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt-get.8.xml
@@ -2698,21 +2626,22 @@ msgstr ""
 #: apt-cache.8.xml
 msgid ""
 "<literal>dotty</literal> takes a list of packages on the command line and "
-"generates output suitable for use by dotty from the <ulink url=\"https://"
-"graphviz.org/\">GraphViz</ulink> package. The result will be a set of nodes "
-"and edges representing the relationships between the packages. By default "
-"the given packages will trace out all dependent packages; this can produce a "
-"very large graph.  To limit the output to only the packages listed on the "
-"command line, set the <literal>APT::Cache::GivenOnly</literal> option."
+"generates output suitable for use by dotty from the <ulink url=\"http://www."
+"research.att.com/sw/tools/graphviz/\">GraphViz</ulink> package. The result "
+"will be a set of nodes and edges representing the relationships between the "
+"packages. By default the given packages will trace out all dependent "
+"packages; this can produce a very large graph.  To limit the output to only "
+"the packages listed on the command line, set the <literal>APT::Cache::"
+"GivenOnly</literal> option."
 msgstr ""
 "<literal>dotty</literal> toma una lista de paquetes de la línea de ordenes y "
 "genera una salida apropiada para su uso con dotty, del paquete <ulink "
-"url=\"https://graphviz.org/\">GraphViz</ulink>. El resultado será un "
-"conjunto de nodos y uniones representando las relaciones entre los paquetes. "
-"De forma predeterminada, los paquetes proporcionados mostrarán todas sus "
-"dependencias, lo que puede producir un grafo muy grande. Para limitar la "
-"salida sólo a los paquetes listados en la línea de órdenes, active la opción "
-"<literal>APT::Cache::GivenOnly</literal>."
+"url=\"http://www.research.att.com/sw/tools/graphviz/\">GraphViz</ulink>. El "
+"resultado será un conjunto de nodos y uniones representando las relaciones "
+"entre los paquetes. De forma predeterminada, los paquetes proporcionados "
+"mostrarán todas sus dependencias, lo que puede producir un grafo muy grande. "
+"Para limitar la salida sólo a los paquetes listados en la línea de órdenes, "
+"active la opción <literal>APT::Cache::GivenOnly</literal>."
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt-cache.8.xml
@@ -2738,12 +2667,12 @@ msgstr "Tenga cuidado, dotty no puede dibujar grandes conjuntos de paquetes."
 #: apt-cache.8.xml
 msgid ""
 "The same as <literal>dotty</literal>, only for xvcg from the <ulink "
-"url=\"https://www.rw.cdl.uni-saarland.de/people/sander/private/html/gsvcg1."
-"html\">VCG tool</ulink>."
+"url=\"http://rw4.cs.uni-sb.de/users/sander/html/gsvcg1.html\">VCG tool</"
+"ulink>."
 msgstr ""
 "Lo mismo que <literal>dotty</literal>, sólo para xvcg de la <ulink "
-"url=\"https://www.rw.cdl.uni-saarland.de/people/sander/private/html/gsvcg1."
-"html\">herramienta VCG</ulink>."
+"url=\"http://rw4.cs.uni-sb.de/users/sander/html/gsvcg1.html\">herramienta "
+"VCG</ulink>."
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
 #: apt-cache.8.xml
@@ -2987,8 +2916,8 @@ msgstr ""
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt-cache.8.xml
-msgid "&apt-conf;, &sources-list;, &apt-get;, &apt-patterns;"
-msgstr "&apt-conf;, &sources-list;, &apt-get;, &apt-patterns;"
+msgid "&apt-conf;, &sources-list;, &apt-get;"
+msgstr "&apt-conf;, &sources-list;, &apt-get;"
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt-cache.8.xml
@@ -3029,7 +2958,7 @@ msgstr ""
 
 #. type: Content of: <refentry><refsect1><para>
 #: apt-key.8.xml
-msgid "apt-key(8) will last be available in Debian 12 and Ubuntu 24.04."
+msgid "apt-key(8) will last be available in Debian 11 and Ubuntu 22.04."
 msgstr ""
 
 #. type: Content of: <refentry><refsect1><title>
@@ -4604,14 +4533,6 @@ msgstr ""
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt.conf.5.xml
 msgid ""
-"Snapshot to use for all repositories configured with <literal>Snapshot: yes</"
-"literal>. See also &sources-list;, the <option>--snapshot</option> option "
-"that sets this value, and <option>Acquire::Snapshots::URI</option> below."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid ""
 "Ignore held packages; this global option causes the problem resolver to "
 "ignore held packages in its decision making."
 msgstr ""
@@ -4797,38 +4718,6 @@ msgstr ""
 "La subsección CDROM controla la herramienta &apt-cdrom;; consulte la "
 "documentación para más información sobre esta opción."
 
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid "Never autoremove packages that match the regular expression(s)."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid ""
-"This option tells apt autoremove that kernels are protected and defaults to "
-"true. In case kernels are not protected they are treated as any other "
-"package."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid ""
-"Define the regular expression(s) for versioned kernel packages.  Based on "
-"these expressions a rule set is injected into apt similar to APT::"
-"NeverAutoRemove regular expressions."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid ""
-"Keep a custom amount of kernels when autoremoving and defaults to 2, meaning "
-"two kernels are kept. Apt will always keep the running kernel and the latest "
-"one. If the latest kernel is the same as the running kernel, the second "
-"latest kernel is kept.  Because of this, any value lower than 2 will be "
-"ignored. If you want only the latest kernel, you should set APT::Protect-"
-"Kernels to false."
-msgstr ""
-
 #. type: Content of: <refentry><refsect1><title>
 #: apt.conf.5.xml
 msgid "The Acquire Group"
@@ -4875,9 +4764,9 @@ msgid ""
 "&sources-list; entries by using the <option>Date-Max-Future</option> option "
 "there."
 msgstr ""
-"El periodo (en segundos) a partir de la creación del fichero «Release» "
-"(indicado en la cabecera <literal>Date</literal>) durante el cual se "
-"considerará válida. Si el fichero «Release» incluye una cabecera "
+"El periodo (en segundos) a partir de la creación del fichero "
+"«Release» (indicado en la cabecera <literal>Date</literal>) durante el cual "
+"se considerará válida. Si el fichero «Release» incluye una cabecera "
 "<literal>Valid-Until</literal>, la fecha más temprana se utilizará como la "
 "fecha de vencimiento. El valor predefinido es <literal>0</literal>, esto es, "
 "sin límite de tiempo. Las opciones de configuración específicas al archivo "
@@ -4938,9 +4827,9 @@ msgid ""
 "achieved for specific &sources-list; entries by using the <option>Valid-"
 "Until-Max</option> option there."
 msgstr ""
-"El periodo (en segundos) a partir de la creación del fichero «Release» "
-"(indicado en la cabecera <literal>Date</literal>) durante el cual se "
-"considerará válida. Si el fichero «Release» incluye una cabecera "
+"El periodo (en segundos) a partir de la creación del fichero "
+"«Release» (indicado en la cabecera <literal>Date</literal>) durante el cual "
+"se considerará válida. Si el fichero «Release» incluye una cabecera "
 "<literal>Valid-Until</literal>, la fecha más temprana se utilizará como la "
 "fecha de vencimiento. El valor predefinido es <literal>0</literal>, esto es, "
 "sin límite de tiempo. Las opciones de configuración específicas al archivo "
@@ -5536,26 +5425,6 @@ msgid ""
 "available in this case."
 msgstr ""
 
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt.conf.5.xml
-msgid ""
-"Like changelogs, snapshots can only be acquired if an URI is known from "
-"where to get them.  Preferable the Release file indicates this in a "
-"'Snapshots' field. If this isn't available the Label/Origin field of the "
-"Release file is used to check if a <literal>Acquire::Snapshots::URI::Label::"
-"<replaceable>LABEL</replaceable></literal> or <literal>Acquire::Snapshots::"
-"URI::Origin::<replaceable>ORIGIN</replaceable></literal> option exists and "
-"if so this value is taken. The value in the Release file can be overridden "
-"with <literal>Acquire::Snapshots::URI::Override::Label::<replaceable>LABEL</"
-"replaceable></literal> or <literal>Acquire::Snapshots::URI::Override::"
-"Origin::<replaceable>ORIGIN</replaceable></literal>.  The value should be a "
-"normal URI to a directory, except that the snapshot ID replaced with the "
-"placeholder <literal>@SNAPSHOTID</literal>.  The special value '<literal>no</"
-"literal>' is available for this option indicating that this source cannot be "
-"used to acquire snapshots from. Another source will be tried if available in "
-"this case."
-msgstr ""
-
 #. type: Content of: <refentry><refsect1><title>
 #: apt.conf.5.xml
 #, fuzzy
@@ -6129,6 +5998,13 @@ msgstr ""
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt.conf.5.xml
+msgid "Describes the process of resolving build-dependencies in &apt-get;."
+msgstr ""
+"Describe el proceso de resolución de dependencias de compilación en &apt-"
+"get;."
+
+#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
+#: apt.conf.5.xml
 msgid ""
 "Output each cryptographic hash that is generated by the <literal>apt</"
 "literal> libraries."
@@ -6670,10 +6546,10 @@ msgid ""
 "replaceable></command> or <command>apt-get upgrade</command> is executed."
 msgstr ""
 "Generalmente, la versión instalada del paquete (prioridad 100) no es tan "
-"reciente como la disponible a través de las fuentes en «&sources-list;» "
-"(prioridad 500 o 990). En este caso, el paquete se actualizará al ejecutar "
-"<command>apt-get install <replaceable>paquete</replaceable></command> o "
-"<command>apt-get upgrade</command>."
+"reciente como la disponible a través de las fuentes en «&sources-"
+"list;» (prioridad 500 o 990). En este caso, el paquete se actualizará al "
+"ejecutar <command>apt-get install <replaceable>paquete</replaceable></"
+"command> o <command>apt-get upgrade</command>."
 
 #. type: Content of: <refentry><refsect1><refsect2><para>
 #: apt_preferences.5.xml
@@ -8510,35 +8386,6 @@ msgid ""
 "<filename>Release.gpg</filename> file. By setting this option, the specified "
 "path will be tried instead of the InRelease file, and the fallback to "
 "<filename>Release</filename> files will be disabled."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><para><itemizedlist><listitem><para>
-#: sources.list.5.xml
-msgid ""
-"<option>Snapshot</option> (<option>snapshot</option>)  allows selecting an "
-"earlier version of the archive from the snapshot service. Supported values "
-"are:"
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><para><itemizedlist><listitem><itemizedlist><listitem><para>
-#: sources.list.5.xml
-msgid ""
-"<literal>enable</literal> to allow selecting a snapshot with the <option>--"
-"snapshot</option> option, or"
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><para><itemizedlist><listitem><itemizedlist><listitem><para>
-#: sources.list.5.xml
-msgid "a snapshot ID to select a specific snapshot."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><para><itemizedlist><listitem><para>
-#: sources.list.5.xml
-msgid ""
-"Snapshot IDs are usually timestamps in the form of "
-"<literal>YYYYMMDDTHHMMSSZ</literal>, such as <literal>20220102T030405Z</"
-"literal> which is the January 2nd, 2022 at 03:04:05 UTC, servers may however "
-"support additional types of IDs, and APT does not perform any checks so far."
 msgstr ""
 
 #. type: Content of: <refentry><refsect1><title>
@@ -11399,16 +11246,6 @@ msgstr ""
 
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
 #: apt-patterns.7.xml
-msgid "<code>?phasing</code>"
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-patterns.7.xml
-msgid "Selects packages that will be kept back in upgrades due to phasing."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
-#: apt-patterns.7.xml
 msgid "<code>?upgradable</code>"
 msgstr ""
 
@@ -11583,17 +11420,6 @@ msgstr ""
 #. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
 #: apt-patterns.7.xml
 msgid "Selects versions where the Priority string equals the given name."
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><term>
-#: apt-patterns.7.xml
-msgid "<code>?security</code>"
-msgstr ""
-
-#. type: Content of: <refentry><refsect1><variablelist><varlistentry><listitem><para>
-#: apt-patterns.7.xml
-msgid ""
-"Selects packages that are a security update or succeed a security update."
 msgstr ""
 
 #. type: Content of: <refentry><refsect1><title>
@@ -13430,11 +13256,6 @@ msgstr "  # apt-get -o dir::cache::archives=\"/disc/\" dist-upgrade\n"
 msgid "Which will use the already fetched archives on the disc."
 msgstr "Esto utiliza los archivos del disco previamente obtenidos."
 
-#~ msgid "Describes the process of resolving build-dependencies in &apt-get;."
-#~ msgstr ""
-#~ "Describe el proceso de resolución de dependencias de compilación en &apt-"
-#~ "get;."
-
 #~ msgid "Regular expressions and &glob; syntax"
 #~ msgstr "Expresiones regulares y sintaxis &glob;"
 
@@ -14019,12 +13840,12 @@ msgstr "Esto utiliza los archivos del disco previamente obtenidos."
 #~ msgstr "Esta página de manual ni siquiera está iniciada."
 
 #~ msgid ""
-#~ "See E<lt>https://bugs.debian.org/aptE<gt>.  If you wish to report a bug "
-#~ "in B<apt>, please see I</usr/share/doc/debian/bug-reporting.txt> or the "
+#~ "See E<lt>http://bugs.debian.org/aptE<gt>.  If you wish to report a bug in "
+#~ "B<apt>, please see I</usr/share/doc/debian/bug-reporting.txt> or the "
 #~ "B<reportbug>(1)  command."
 #~ msgstr ""
-#~ "Consulte E<lt>https://bugs.debian.org/aptE<gt>. Si desea enviar un "
-#~ "informe de error sobre B<apt>, por favor lea I</usr/share/doc/debian/bug-"
+#~ "Consulte E<lt>http://bugs.debian.org/aptE<gt>. Si desea enviar un informe "
+#~ "de error sobre B<apt>, por favor lea I</usr/share/doc/debian/bug-"
 #~ "reporting.txt> o use la orden B<reportbug>(1)."
 
 #~ msgid "AUTHOR"

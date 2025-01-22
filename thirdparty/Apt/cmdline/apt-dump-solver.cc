@@ -25,7 +25,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include <cstring>
+#include <string.h>
 #include <unistd.h>
 
 #include <apti18n.h>

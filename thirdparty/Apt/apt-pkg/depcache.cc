@@ -29,20 +29,18 @@
 #include <apt-pkg/versionmatch.h>
 
 #include <algorithm>
-#include <cstdio>
-#include <cstring>
 #include <iostream>
+#include <memory>
+#include <sstream>
 #include <iterator>
 #include <list>
-#include <memory>
-#include <random>
 #include <set>
-#include <sstream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include <dirent.h>
+#include <stdio.h>
+#include <string.h>
 
 #include <sys/stat.h>
 
@@ -143,7 +141,6 @@ struct pkgDepCache::Private
 {
    std::unique_ptr<InRootSetFunc> inRootSetFunc;
    std::unique_ptr<APT::CacheFilter::Matcher> IsAVersionedKernelPackage, IsProtectedKernelPackage;
-   std::string machineID;
 };
 pkgDepCache::pkgDepCache(pkgCache *const pCache, Policy *const Plcy) : group_level(0), Cache(pCache), PkgState(0), DepState(0),
 								       iUsrSize(0), iDownloadSize(0), iInstCount(0), iDelCount(0), iKeepCount(0),
@@ -151,7 +148,6 @@ pkgDepCache::pkgDepCache(pkgCache *const pCache, Policy *const Plcy) : group_lev
 {
    DebugMarker = _config->FindB("Debug::pkgDepCache::Marker", false);
    DebugAutoInstall = _config->FindB("Debug::pkgDepCache::AutoInstall", false);
-   d->machineID = APT::Configuration::getMachineID();
    delLocalPolicy = 0;
    LocalPolicy = Plcy;
    if (LocalPolicy == 0)
@@ -2564,108 +2560,5 @@ bool pkgDepCache::MarkAndSweep()
       return MarkAndSweep(*f);
    else
       return false;
-}
-									/*}}}*/
-
-// DepCache::PhasingApplied					/*{{{*/
-// Check if this version is a phased update that should be ignored, not considering whether
-// it is a security update.
-static bool IsIgnoredPhasedUpdate(std::string machineID, pkgCache::VerIterator const &Ver)
-{
-   if (_config->FindB("APT::Get::Phase-Policy", false))
-      return false;
-
-   // The order and fallbacks for the always/never checks come from update-manager and exist
-   // to preserve compatibility.
-   if (_config->FindB("APT::Get::Always-Include-Phased-Updates",
-		      _config->FindB("Update-Manager::Always-Include-Phased-Updates", false)))
-      return false;
-
-   if (_config->FindB("APT::Get::Never-Include-Phased-Updates",
-		      _config->FindB("Update-Manager::Never-Include-Phased-Updates", false)))
-      return true;
-
-   if (machineID.empty()			 // no machine-id
-       || getenv("SOURCE_DATE_EPOCH") != nullptr // reproducible build - always include
-       || APT::Configuration::isChroot())
-      return false;
-
-   std::string seedStr = std::string(Ver.SourcePkgName()) + "-" + Ver.SourceVerStr() + "-" + machineID;
-   std::seed_seq seed(seedStr.begin(), seedStr.end());
-   std::minstd_rand rand(seed);
-   std::uniform_int_distribution<unsigned int> dist(0, 100);
-
-   return dist(rand) > Ver.PhasedUpdatePercentage();
-}
-
-bool pkgDepCache::PhasingApplied(pkgCache::PkgIterator Pkg) const
-{
-   if (Pkg->CurrentVer == 0)
-      return false;
-   if ((*this)[Pkg].CandidateVer == 0)
-      return false;
-   if ((*this)[Pkg].CandidateVerIter(*Cache).PhasedUpdatePercentage() == 100)
-      return false;
-   if ((*this)[Pkg].CandidateVerIter(*Cache).IsSecurityUpdate())
-      return false;
-   if (!IsIgnoredPhasedUpdate(d->machineID, (*this)[Pkg].CandidateVerIter(*Cache)))
-      return false;
-
-   return true;
-}
-									/*}}}*/
-
-// DepCache::BootSize						/*{{{*/
-double pkgDepCache::BootSize(bool initrdOnly)
-{
-   double BootSize = 0;
-   int BootCount = 0;
-   auto VirtualKernelPkg = FindPkg("$kernel", "any");
-   if (VirtualKernelPkg.end())
-      return 0;
-
-   for (pkgCache::PrvIterator Prv = VirtualKernelPkg.ProvidesList(); Prv.end() == false; ++Prv)
-   {
-      auto Pkg = Prv.OwnerPkg();
-      if ((*this)[Pkg].NewInstall())
-	 BootSize += (*this)[Pkg].InstallVer->InstalledSize, BootCount++;
-   }
-   if (BootCount == 0)
-      return 0;
-   if (initrdOnly)
-      BootSize = 0;
-
-   DIR *boot = opendir(_config->FindDir("Dir::Boot").c_str());
-   struct dirent *ent;
-   if (boot)
-   {
-      double initrdSize = 0;
-      double mapSize = 0;
-      while ((ent = readdir(boot)))
-      {
-	 enum
-	 {
-	    INITRD,
-	    MAP
-	 } type;
-	 if (APT::String::Startswith(ent->d_name, "initrd.img-"))
-	    type = INITRD;
-	 else if (APT::String::Startswith(ent->d_name, "System.map-"))
-	    type = MAP;
-	 else
-	    continue;
-
-	 auto path = _config->FindDir("Dir::Boot") + ent->d_name;
-
-	 if (struct stat st; stat(path.c_str(), &st) == 0)
-	 {
-	    double &targetSize = type == INITRD ? initrdSize : mapSize;
-	    targetSize = std::max(targetSize, double(st.st_size));
-	 }
-      }
-      closedir(boot);
-      return initrdSize ? BootSize + BootCount * (initrdSize + mapSize) * 1.1 : 0;
-   }
-   return 0;
 }
 									/*}}}*/

@@ -39,9 +39,9 @@
 #include <apt-pkg/error.h>
 #include <apt-pkg/fileutl.h>
 
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "contents.h"
 

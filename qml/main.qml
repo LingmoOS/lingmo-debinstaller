@@ -37,6 +37,15 @@ LingmoUI.Window {
 
     background.color: LingmoUI.Theme.secondBackgroundColor
 
+    background.opacity: LingmoUI.Theme.darkMode ? 0.7 : 0.6
+
+    LingmoUI.WindowBlur {
+        view: control
+        geometry: Qt.rect(control.x, control.y, control.width, control.height)
+        windowRadius: control.windowRadius
+        enabled: control.compositing
+    }
+
     headerItem: Label {
         text: control.title
         leftPadding: LingmoUI.Units.largeSpacing

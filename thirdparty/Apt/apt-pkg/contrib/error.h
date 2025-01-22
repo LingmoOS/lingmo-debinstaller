@@ -49,8 +49,8 @@
 #include <list>
 #include <string>
 
-#include <cstdarg>
-#include <cstddef>
+#include <stdarg.h>
+#include <stddef.h>
 
 class APT_PUBLIC GlobalError						/*{{{*/
 {

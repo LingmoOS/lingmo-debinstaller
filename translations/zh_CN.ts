@@ -74,12 +74,12 @@
 <context>
     <name>DebInstaller</name>
     <message>
-        <location filename="../src/debinstaller.cpp" line="261"/>
+        <location filename="../src/debinstaller.cpp" line="269"/>
         <source>Error: Wrong architecture %1</source>
         <translation>错误的架构: %1</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="278"/>
+        <location filename="../src/debinstaller.cpp" line="286"/>
         <source>Error: Breaks the existing package %1</source>
         <translation>错误: 打破现有软件包 %1</translation>
     </message>
@@ -88,7 +88,7 @@
         <translation type="vanished">错误: 不能满足依赖关系</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="298"/>
+        <location filename="../src/debinstaller.cpp" line="306"/>
         <source>Requires the installation of %1 additional package.</source>
         <translation>需要安装 %1 额外的软件包</translation>
     </message>
@@ -97,37 +97,37 @@
         <translation type="vanished">所有的依赖得到满足</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="506"/>
+        <location filename="../src/debinstaller.cpp" line="514"/>
         <source>Starting</source>
         <translation>准备中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="512"/>
+        <location filename="../src/debinstaller.cpp" line="520"/>
         <source>Waiting</source>
         <translation>等待中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="518"/>
+        <location filename="../src/debinstaller.cpp" line="526"/>
         <source>Installing</source>
         <translation>安装中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="524"/>
+        <location filename="../src/debinstaller.cpp" line="532"/>
         <source>Loading Cache</source>
         <translation>加载缓存中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="529"/>
+        <location filename="../src/debinstaller.cpp" line="537"/>
         <source>Downloading Packages</source>
         <translation>下载软件包中</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="542"/>
+        <location filename="../src/debinstaller.cpp" line="550"/>
         <source>Installation successful</source>
         <translation>安装成功</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="557"/>
+        <location filename="../src/debinstaller.cpp" line="565"/>
         <source>Installation failed</source>
         <translation>安装失败</translation>
     </message>

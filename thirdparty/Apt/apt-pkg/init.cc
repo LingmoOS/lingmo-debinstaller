@@ -18,12 +18,12 @@
 #include <apt-pkg/strutl.h>
 
 #include <cstdlib>
-#include <cstring>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <string.h>
 
 #include <apti18n.h>
 									/*}}}*/
@@ -131,7 +131,6 @@ bool pkgInitConfig(Configuration &Cnf)
       Cnf.Set("APT::Build-Essential::", "build-essential");
    Cnf.CndSet("APT::Install-Recommends", true);
    Cnf.CndSet("APT::Install-Suggests", false);
-   Cnf.CndSet("APT::Key::Assert-Pubkey-Algo", ">=rsa2048,ed25519,ed448");
    Cnf.CndSet("Dir","/");
    
    // State
@@ -147,8 +146,6 @@ bool pkgInitConfig(Configuration &Cnf)
 
    // Configuration
    Cnf.CndSet("Dir::Etc", &CONF_DIR[1]);
-   Cnf.CndSet("Dir::Boot", "boot");
-   Cnf.CndSet("Dir::Usr", "usr");
    Cnf.CndSet("Dir::Etc::sourcelist","sources.list");
    Cnf.CndSet("Dir::Etc::sourceparts","sources.list.d");
    Cnf.CndSet("Dir::Etc::main","apt.conf");
@@ -212,16 +209,6 @@ bool pkgInitConfig(Configuration &Cnf)
    Cnf.CndSet("Acquire::Changelogs::URI::Origin::Ubuntu", "https://changelogs.ubuntu.com/changelogs/pool/@CHANGEPATH@/changelog");
    Cnf.CndSet("Acquire::Changelogs::AlwaysOnline::Origin::Ubuntu", true);
 
-   Cnf.CndSet("Acquire::Snapshots::URI::Origin::Debian", "https://snapshot.debian.org/archive/debian/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Override::Label::Debian-Security", "https://snapshot.debian.org/archive/debian-security/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Origin::Ubuntu", "https://snapshot.ubuntu.com/ubuntu/@SNAPSHOTID@/");
-   // Preseeds by host
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::archive.ubuntu.com", "https://snapshot.ubuntu.com/@PATH@/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::deb.debian.org", "https://snapshot.debian.org/archive/@PATH@/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::.archive.ubuntu.com", "https://snapshot.ubuntu.com/@PATH@/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::security.ubuntu.com", "https://snapshot.ubuntu.com/@PATH@/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::ppa.launchpadcontent.net", "https://snapshot.ppa.launchpadcontent.net/@PATH@/@SNAPSHOTID@/");
-   Cnf.CndSet("Acquire::Snapshots::URI::Host::ppa.launchpad.net", "https://snapshot.ppa.launchpadcontent.net/@PATH@/@SNAPSHOTID@/");
 
    Cnf.CndSet("DPkg::Path", "/usr/sbin:/usr/bin:/sbin:/bin");
 

@@ -11,8 +11,8 @@
 
 #include <apt-pkg/version.h>
 
-#include <cstdlib>
-#include <cstring>
+#include <stdlib.h>
+#include <string.h>
 									/*}}}*/
     
 static pkgVersioningSystem *VSList[10];

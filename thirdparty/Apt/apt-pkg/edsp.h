@@ -13,7 +13,7 @@
 #include <apt-pkg/macros.h>
 #include <apt-pkg/pkgcache.h>
 
-#include <cstdio>
+#include <stdio.h>
 
 #include <list>
 #include <string>

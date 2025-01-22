@@ -66,12 +66,12 @@
 <context>
     <name>DebInstaller</name>
     <message>
-        <location filename="../src/debinstaller.cpp" line="261"/>
+        <location filename="../src/debinstaller.cpp" line="269"/>
         <source>Error: Wrong architecture %1</source>
         <translation>Erreur&#xa0;: Architecture incorrecte %1</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="278"/>
+        <location filename="../src/debinstaller.cpp" line="286"/>
         <source>Error: Breaks the existing package %1</source>
         <translation>Erreur&#xa0;: Interrompt le paquet existant %1</translation>
     </message>
@@ -80,7 +80,7 @@
         <translation type="vanished">Erreur&#xa0;: Ne peut pas satisfaire les dépendances</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="298"/>
+        <location filename="../src/debinstaller.cpp" line="306"/>
         <source>Requires the installation of %1 additional package.</source>
         <translation>Nécessite l&apos;installation de %1 paquet supplémentaire.</translation>
     </message>
@@ -89,37 +89,37 @@
         <translation type="vanished">Toutes les dépendances sont satisfaites.</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="506"/>
+        <location filename="../src/debinstaller.cpp" line="514"/>
         <source>Starting</source>
         <translation>En marche</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="512"/>
+        <location filename="../src/debinstaller.cpp" line="520"/>
         <source>Waiting</source>
         <translation>En attente</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="518"/>
+        <location filename="../src/debinstaller.cpp" line="526"/>
         <source>Installing</source>
         <translation>Installation</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="524"/>
+        <location filename="../src/debinstaller.cpp" line="532"/>
         <source>Loading Cache</source>
         <translation>Chargement du cache</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="529"/>
+        <location filename="../src/debinstaller.cpp" line="537"/>
         <source>Downloading Packages</source>
         <translation>Téléchargement des paquets</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="542"/>
+        <location filename="../src/debinstaller.cpp" line="550"/>
         <source>Installation successful</source>
         <translation>Installation réussie</translation>
     </message>
     <message>
-        <location filename="../src/debinstaller.cpp" line="557"/>
+        <location filename="../src/debinstaller.cpp" line="565"/>
         <source>Installation failed</source>
         <translation>L&apos;installation a échoué</translation>
     </message>

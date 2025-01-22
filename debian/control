@@ -1,7 +1,7 @@
 Source: lingmo-debinstaller
 Section: devel
 Priority: optional
-Maintainer: LingmoOS <support@lingmoos.com>
+Maintainer: Lingmo OS Team <team@lingmo.org>
 Build-Depends: cmake,
                debhelper (>= 9),
                extra-cmake-modules,
@@ -12,9 +12,16 @@ Build-Depends: cmake,
                qttools5-dev-tools,
                libqapt-dev,
                libapt-pkg-dev,
+               libgnutls28-dev,
+               liblz4-dev,
+               libxxhash-dev,
+               docbook-xsl,
+               libgtest-dev,
+               libbz2-dev,
+               libdb-dev,
                triehash
 Standards-Version: 4.5.0
-Homepage: https://lingmoos.com/
+Homepage: https://lingmo.org
 
 Package: lingmo-debinstaller
 Architecture: any

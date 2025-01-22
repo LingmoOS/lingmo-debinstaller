@@ -33,7 +33,6 @@ APT_PUBLIC bool DoDownload(CommandLine &CmdL);
 APT_PUBLIC bool DoChangelog(CommandLine &CmdL);
 
 APT_PUBLIC bool DoClean(CommandLine &CmdL);
-APT_PUBLIC bool DoDistClean(CommandLine &CmdL);
 APT_PUBLIC bool DoAutoClean(CommandLine &CmdL);
 
 #endif

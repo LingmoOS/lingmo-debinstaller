@@ -24,24 +24,43 @@
 #include <apt-private/private-update.h>
 #include <apt-private/private-upgrade.h>
 
-/**
- * @brief A struct to store command line args.
- */
-typedef struct Args_s {
+#include <vector>
+#include <iostream>
+#include "thirdparty/Apt/apt-private/private-cmndline.h"
+
+// 函数声明
+void DoList();
+void DoSearch();
+void ShowPackage();
+void DoInstall();
+void DoUpdate();
+void DoUpgrade();
+void DoDistUpgrade();
+
+// 声明 DoDistClean 函数
+void DoDistClean();
+
+// 定义 Args_t 结构体
+struct Args_t {
     int argc;
-    const char** argv;
-} Args_t;
+    const char **argv;
+
+    // 默认构造函数
+    Args_t() : argc(0), argv(nullptr) {}
+
+    // 带参数的构造函数
+    Args_t(int count, const char **arguments) : argc(count), argv(arguments) {}
+};
 
 class AptCli {
 public:
-    explicit AptCli(int argc = 0, const char **argv = nullptr);
+    Args_t m_args{}; // 使用 Args_t 类型
+    AptCli(int argc, const char **argv);
 
     static bool m_showHelp(CommandLine &);
 
     static std::vector<aptDispatchWithHelp> m_getCommands();
 protected:
-    Args_t m_args{};
-
     std::vector<CommandLine::Dispatch> m_cmds;
 };
 

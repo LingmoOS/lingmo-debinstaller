@@ -1,15 +1,15 @@
 # Deb Installer
 
-LingmoOS的软件包安装程序。
+Package installer for Lingmo OS.
 
-## 依赖包
+## Dependencies
 
-Debian/Ubuntu 依赖包:
+Debian/Ubuntu Dependencies:
 ```shell
 sudo apt install cmake debhelper qtbase5-dev qtdeclarative5-dev qtquickcontrols2-5-dev libqapt-dev libapt-pkg-dev
 ```
 
-## 构建
+## Build
 
 ```shell
 mkdir build

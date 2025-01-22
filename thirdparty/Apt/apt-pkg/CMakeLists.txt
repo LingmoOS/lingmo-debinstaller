@@ -1,4 +1,3 @@
-add_compile_options(-fPIC)
 # Include apt-pkg directly, as some files have #include <system.h>
 include_directories(${PROJECT_BINARY_DIR}/include/apt-pkg)
 
@@ -41,7 +40,7 @@ file(GLOB_RECURSE library "*.cc"  "${CMAKE_CURRENT_BINARY_DIR}/tagfile-keys.cc")
 file(GLOB_RECURSE headers "*.h")
 
 # Create a library using the C++ files
-add_library(apt-pkg STATIC ${library})
+add_library(apt-pkg SHARED ${library})
 add_dependencies(apt-pkg apt-pkg-versionscript)
 # Link the library and set the SONAME
 target_include_directories(apt-pkg

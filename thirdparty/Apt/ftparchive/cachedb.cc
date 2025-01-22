@@ -19,9 +19,9 @@
 #include <apt-pkg/hashes.h>
 #include <apt-pkg/strutl.h>
 
-#include <cctype>
-#include <cstddef>
+#include <ctype.h>
 #include <netinet/in.h> // htonl, etc
+#include <stddef.h>
 #include <strings.h>
 #include <sys/stat.h>
 

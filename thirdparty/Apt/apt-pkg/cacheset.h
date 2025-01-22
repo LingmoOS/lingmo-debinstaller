@@ -24,7 +24,7 @@
 #include <string>
 #include <vector>
 
-#include <cstddef>
+#include <stddef.h>
 
 #include <apt-pkg/error.h>
 #include <apt-pkg/macros.h>

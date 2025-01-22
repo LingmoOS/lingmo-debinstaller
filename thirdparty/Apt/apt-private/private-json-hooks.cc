@@ -20,7 +20,7 @@
 #include <stack>
 #include <unordered_map>
 
-#include <csignal>
+#include <signal.h>
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>

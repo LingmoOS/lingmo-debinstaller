@@ -16,7 +16,7 @@
 #ifndef PKGLIB_CACHEFILE_H
 #define PKGLIB_CACHEFILE_H
 
-#include <cstddef>
+#include <stddef.h>
 
 #include <apt-pkg/depcache.h>
 #include <apt-pkg/macros.h>

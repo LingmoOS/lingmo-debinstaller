@@ -39,7 +39,7 @@
 #include <string>
 #include <apt-pkg/string_view.h>
 
-#include <cstring>
+#include <string.h>
 
 // abstract Iterator template						/*{{{*/
 /* This template provides the very basic iterator methods we
@@ -246,7 +246,6 @@ class APT_PUBLIC pkgCache::VerIterator : public Iterator<Version, VerIterator> {
 
 	bool Automatic() const;
 	VerFileIterator NewestFile() const;
-	bool IsSecurityUpdate() const;
 
 #ifdef APT_COMPILING_APT
 	inline unsigned int PhasedUpdatePercentage() const

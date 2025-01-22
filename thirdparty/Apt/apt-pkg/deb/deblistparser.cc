@@ -25,11 +25,11 @@
 #include <apt-pkg/tagfile.h>
 
 #include <algorithm>
-#include <cctype>
-#include <cstddef>
-#include <cstring>
 #include <string>
 #include <vector>
+#include <ctype.h>
+#include <stddef.h>
+#include <string.h>
 									/*}}}*/
 
 using std::string;
@@ -282,7 +282,25 @@ std::vector<std::string> debListParser::AvailableDescriptionLanguages()
  */
 APT::StringView debListParser::Description_md5()
 {
-   return Section.Find(pkgTagSection::Key::Description_md5);
+   StringView const value = Section.Find(pkgTagSection::Key::Description_md5);
+   if (unlikely(value.empty() == true))
+   {
+      StringView const desc = Section.Find(pkgTagSection::Key::Description);
+      if (desc == "\n")
+	 return StringView();
+
+      Hashes md5(Hashes::MD5SUM);
+      md5.Add(desc.data(), desc.size());
+      md5.Add("\n");
+      MD5Buffer = md5.GetHashString(Hashes::MD5SUM).HashValue();
+      return StringView(MD5Buffer);
+   }
+   else if (likely(value.size() == 32))
+   {
+      return value;
+   }
+   _error->Error("Malformed Description-md5 line; doesn't have the required length (32 != %d) '%.*s'", (int)value.size(), (int)value.length(), value.data());
+   return StringView();
 }
                                                                         /*}}}*/
 // ListParser::UsePackage - Update a package structure			/*{{{*/
@@ -522,17 +540,7 @@ const char *debListParser::ConvertRelation(const char *I,unsigned int &Op)
       Op = pkgCache::Dep::Equals;
       I++;
       break;
-
-      // != is unsupported packaging
-      case '!':
-      if (*(I + 1) == '=')
-      {
-	 I = I + 2;
-	 Op = pkgCache::Dep::NotEquals;
-	 break;
-      }
-      [[fallthrough]];
-
+      
       // HACK around bad package definitions
       default:
       Op = pkgCache::Dep::Equals;
@@ -608,7 +616,7 @@ const char *debListParser::ParseDepends(const char *Start, const char *Stop,
    {
       // Skip the '('
       for (I++; I != Stop && isspace_ascii(*I) != 0 ; I++);
-      if (I + 3 > Stop)
+      if (I + 3 >= Stop)
 	 return 0;
       I = ConvertRelation(I,Op);
       

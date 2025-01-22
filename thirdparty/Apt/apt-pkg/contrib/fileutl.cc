@@ -35,27 +35,28 @@
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/strutl.h>
 
-#include <cctype>
-#include <cerrno>
-#include <csignal>
-#include <cstdarg>
-#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <ctime>
 #include <iostream>
 #include <string>
 #include <vector>
+#include <ctype.h>
 #include <dirent.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <glob.h>
 #include <grp.h>
 #include <pwd.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdio.h>
 #include <sys/select.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/wait.h>
+#include <time.h>
 #include <unistd.h>
 
 #include <algorithm>
@@ -80,8 +81,8 @@
 #ifdef HAVE_SYSTEMD
 #include <systemd/sd-bus.h>
 #endif
-#include <cstdint>
 #include <endian.h>
+#include <stdint.h>
 
 #if __gnu_linux__
 #include <sys/prctl.h>
@@ -485,14 +486,12 @@ std::vector<string> GetListOfFilesInDir(string const &Dir, std::vector<string> c
       {
 	 if (RealFileExists(File) == false)
 	 {
-	    string d_ext = flExtension(Ent->d_name);
 	    // do not show ignoration warnings for directories
-	    if ((
+	    if (
 #ifdef _DIRENT_HAVE_D_TYPE
-		   Ent->d_type == DT_DIR ||
+		Ent->d_type == DT_DIR ||
 #endif
-		   DirectoryExists(File) == true) &&
-		(d_ext.empty() || std::find(Ext.begin(), Ext.end(), d_ext) == Ext.end()))
+		DirectoryExists(File) == true)
 	       continue;
 	    if (SilentIgnore.Match(Ent->d_name) == false)
 	       _error->Notice(_("Ignoring '%s' in directory '%s' as it is not a regular file"), Ent->d_name, Dir.c_str());
@@ -2708,28 +2707,32 @@ bool FileFd::Read(void *To,unsigned long long Size,unsigned long long *Actual)
 {
    if (d == nullptr || Failed())
       return false;
+   ssize_t Res = 1;
+   errno = 0;
    if (Actual != 0)
       *Actual = 0;
    *((char *)To) = '\0';
-   while (Size > 0)
+   while (Res > 0 && Size > 0)
    {
-      errno = 0;
-      ssize_t Res = d->InternalRead(To, Size);
+      Res = d->InternalRead(To, Size);
 
       if (Res < 0)
       {
 	 if (errno == EINTR)
+	 {
+	    // trick the while-loop into running again
+	    Res = 1;
+	    errno = 0;
 	    continue;
+	 }
 	 return d->InternalReadError();
       }
-      if (Res == 0)
-	 break;
-
-      To = static_cast<char *>(To) + Res;
+      
+      To = (char *)To + Res;
       Size -= Res;
-      if (d != nullptr)
+      if (d != NULL)
 	 d->set_seekpos(d->get_seekpos() + Res);
-      if (Actual != nullptr)
+      if (Actual != 0)
 	 *Actual += Res;
    }
    
@@ -2747,22 +2750,24 @@ bool FileFd::Read(void *To,unsigned long long Size,unsigned long long *Actual)
 }
 bool FileFd::Read(int const Fd, void *To, unsigned long long Size, unsigned long long * const Actual)
 {
+   ssize_t Res = 1;
+   errno = 0;
    if (Actual != nullptr)
       *Actual = 0;
    *static_cast<char *>(To) = '\0';
-   while (Size > 0)
+   while (Res > 0 && Size > 0)
    {
-      errno = 0;
-      ssize_t const Res = read(Fd, To, Size);
+      Res = read(Fd, To, Size);
       if (Res < 0)
       {
 	 if (errno == EINTR)
+	 {
+	    Res = 1;
+	    errno = 0;
 	    continue;
+	 }
 	 return _error->Errno("read", _("Read error"));
       }
-      if (Res == 0)
-	 break;
-
       To = static_cast<char *>(To) + Res;
       Size -= Res;
       if (Actual != 0)
@@ -2823,23 +2828,27 @@ bool FileFd::Write(const void *From,unsigned long long Size)
 {
    if (d == nullptr || Failed())
       return false;
-   while (Size > 0)
+   ssize_t Res = 1;
+   errno = 0;
+   while (Res > 0 && Size > 0)
    {
-      errno = 0;
-      ssize_t const Res = d->InternalWrite(From, Size);
+      Res = d->InternalWrite(From, Size);
 
       if (Res < 0)
       {
 	 if (errno == EINTR)
+	 {
+	    // trick the while-loop into running again
+	    Res = 1;
+	    errno = 0;
 	    continue;
+	 }
 	 return d->InternalWriteError();
       }
-      if (Res == 0)
-	 break;
 
-      From = static_cast<char const *>(From) + Res;
+      From = (char const *)From + Res;
       Size -= Res;
-      if (d != nullptr)
+      if (d != NULL)
 	 d->set_seekpos(d->get_seekpos() + Res);
    }
 
@@ -2850,20 +2859,17 @@ bool FileFd::Write(const void *From,unsigned long long Size)
 }
 bool FileFd::Write(int Fd, const void *From, unsigned long long Size)
 {
-   while (Size > 0)
+   ssize_t Res = 1;
+   errno = 0;
+   while (Res > 0 && Size > 0)
    {
-      errno = 0;
-      ssize_t const Res = write(Fd, From, Size);
+      Res = write(Fd,From,Size);
+      if (Res < 0 && errno == EINTR)
+	 continue;
       if (Res < 0)
-      {
-	 if (errno == EINTR)
-	    continue;
 	 return _error->Errno("write",_("Write error"));
-      }
-      if (Res == 0)
-	 break;
 
-      From = static_cast<char const *>(From) + Res;
+      From = (char const *)From + Res;
       Size -= Res;
    }
 

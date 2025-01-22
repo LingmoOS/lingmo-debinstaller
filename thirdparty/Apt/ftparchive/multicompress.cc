@@ -21,7 +21,7 @@
 #include <apt-pkg/hashes.h>
 #include <apt-pkg/strutl.h>
 
-#include <cctype>
+#include <ctype.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>

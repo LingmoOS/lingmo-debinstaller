@@ -12,9 +12,9 @@
 #include <apt-private/private-cmndline.h>
 #include <apt-private/private-main.h>
 
-#include <cstdarg>
-#include <cstdlib>
-#include <cstring>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include <algorithm>
@@ -88,7 +88,6 @@ static bool addArgumentsAPTCache(std::vector<CommandLine::Args> &Args, char cons
    addArg('g', "generate", "APT::Cache::Generate", 0);
    addArg('t', "target-release", "APT::Default-Release", CommandLine::HasArg);
    addArg('t', "default-release", "APT::Default-Release", CommandLine::HasArg);
-   addArg('S', "snapshot", "APT::Snapshot", CommandLine::HasArg);
 
    addArg('p', "pkg-cache", "Dir::Cache::pkgcache", CommandLine::HasArg);
    addArg('s', "src-cache", "Dir::Cache::srcpkgcache", CommandLine::HasArg);
@@ -184,22 +183,19 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
       addArg(0, "show-progress", "DpkgPM::Progress", 0);
       addArg('f', "fix-broken", "APT::Get::Fix-Broken", 0);
       addArg(0, "purge", "APT::Get::Purge", 0);
-      addArg('V',"verbose-versions", "APT::Get::Show-Versions",0);
-      addArg(0, "list-columns", "APT::Get::List-Columns", 0);
+      addArg('V',"verbose-versions","APT::Get::Show-Versions",0);
       addArg(0, "autoremove", "APT::Get::AutomaticRemove", 0);
       addArg(0, "auto-remove", "APT::Get::AutomaticRemove", 0);
       addArg(0, "reinstall", "APT::Get::ReInstall", 0);
       addArg(0, "solver", "APT::Solver", CommandLine::HasArg);
       addArg(0, "planner", "APT::Planner", CommandLine::HasArg);
-      addArg('U', "update", "APT::Update", 0);
       if (CmdMatches("upgrade"))
       {
          addArg(0, "new-pkgs", "APT::Get::Upgrade-Allow-New", 
                 CommandLine::Boolean);
       }
    }
-
-   else if (CmdMatches("update") || CmdMatches("install"))
+   else if (CmdMatches("update"))
    {
       addArg(0, "list-cleanup", "APT::Get::List-Cleanup", 0);
       addArg(0, "allow-insecure-repositories", "Acquire::AllowInsecureRepositories", 0);
@@ -215,7 +211,6 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
    }
    else if (CmdMatches("source"))
    {
-      addArg('a', "host-architecture", "APT::Get::Host-Architecture", CommandLine::HasArg);
       addArg('b', "compile", "APT::Get::Compile", 0);
       addArg('b', "build", "APT::Get::Compile", 0);
       addArg('P', "build-profiles", "APT::Build-Profiles", CommandLine::HasArg);
@@ -244,15 +239,14 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
       addArg(0,"format","APT::Get::IndexTargets::Format", CommandLine::HasArg);
       addArg(0,"release-info","APT::Get::IndexTargets::ReleaseInfo", 0);
    }
-   else if (CmdMatches("clean", "autoclean", "auto-clean", "distclean", "dist-clean", "check", "download", "changelog") ||
+   else if (CmdMatches("clean", "autoclean", "auto-clean", "check", "download", "changelog") ||
 	    CmdMatches("markauto", "unmarkauto")) // deprecated commands
       ;
    else if (CmdMatches("moo"))
       addArg(0, "color", "APT::Moo::Color", 0);
 
    if (CmdMatches("install", "reinstall", "remove", "purge", "upgrade", "dist-upgrade",
-	    "dselect-upgrade", "autoremove", "auto-remove", "autopurge", "check",
-	    "clean", "autoclean", "auto-clean", "distclean", "dist-clean",
+	    "dselect-upgrade", "autoremove", "auto-remove", "autopurge", "clean", "autoclean", "auto-clean", "check",
 	    "build-dep", "satisfy", "full-upgrade", "source"))
    {
       addArg('s', "simulate", "APT::Get::Simulate", 0);
@@ -273,7 +267,6 @@ static bool addArgumentsAPTGet(std::vector<CommandLine::Args> &Args, char const 
    addArg('m',"ignore-missing","APT::Get::Fix-Missing",0);
    addArg('t',"target-release","APT::Default-Release",CommandLine::HasArg);
    addArg('t',"default-release","APT::Default-Release",CommandLine::HasArg);
-   addArg('S', "snapshot", "APT::Snapshot", CommandLine::HasArg);
    addArg(0,"download","APT::Get::Download",0);
    addArg(0,"fix-missing","APT::Get::Fix-Missing",0);
    addArg(0,"ignore-hold","APT::Ignore-Hold",0);
@@ -481,15 +474,10 @@ static bool ShowCommonHelp(APT_CMD const Binary, CommandLine &CmdL, std::vector<
 static void BinarySpecificConfiguration(char const * const Binary)	/*{{{*/
 {
    std::string const binary = flNotDir(Binary);
-   if (binary == "apt-cdrom" || binary == "apt-config")
-   {
-      _config->CndSet("Binary::apt-cdrom::APT::Internal::OpProgress::EraseLines", false);
-   }
    if (binary == "apt" || binary == "apt-config")
    {
-      if (getenv("NO_COLOR") == nullptr && getenv("APT_NO_COLOR") == nullptr)
-	 _config->CndSet("Binary::apt::APT::Color", true);
-      _config->CndSet("Binary::apt::APT::Output-Version", 30);
+      if (getenv("NO_COLOR") == nullptr)
+         _config->CndSet("Binary::apt::APT::Color", true);
       _config->CndSet("Binary::apt::APT::Cache::Show::Version", 2);
       _config->CndSet("Binary::apt::APT::Cache::AllVersions", false);
       _config->CndSet("Binary::apt::APT::Cache::ShowVirtuals", true);

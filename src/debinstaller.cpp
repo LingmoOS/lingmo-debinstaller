@@ -84,7 +84,12 @@ DebInstaller::DebInstaller(QObject *parent)
     , m_isInstalled(false)
     , m_status(DebInstaller::Begin)
 {
+}
 
+DebInstaller::~DebInstaller() {
+    // 确保释放动态分配的资源
+    delete m_debFile;
+    delete m_transaction;
 }
 
 QString DebInstaller::fileName() const
@@ -94,20 +99,23 @@ QString DebInstaller::fileName() const
 
 void DebInstaller::setFileName(const QString &fileName)
 {
-    if (fileName.isEmpty() || !m_backend->init()
-            || m_fileName == fileName)
+    if (fileName.isEmpty() || !m_backend->init() || m_fileName == fileName) {
+        qDebug() << "Invalid file name or backend initialization failed.";
         return;
+    }
 
     QString newPath = fileName;
-    newPath = newPath.remove("file://");
-
+    newPath.remove("file://");
     QFileInfo info(newPath);
     QString mimeType = QMimeDatabase().mimeTypeForFile(info.absoluteFilePath()).name();
 
-    if (mimeType != "application/vnd.debian.binary-package")
+    if (mimeType != "application/vnd.debian.binary-package") {
+        qDebug() << "Invalid MIME type:" << mimeType;
         return;
+    }
 
     m_fileName = info.absoluteFilePath();
+    emit fileNameChanged(); // 立即发出信号
 
     QApt::FrontendCaps caps = (QApt::FrontendCaps)(QApt::DebconfCap);
     m_backend->setFrontendCaps(caps);

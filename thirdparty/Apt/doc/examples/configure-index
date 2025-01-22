@@ -55,13 +55,9 @@ APT
   Build-Profiles "<STRING_OR_LIST>";
 
   NeverAutoRemove "<LIST>";  // list of package name regexes
-  NeverAutoRemove::KernelCount "<INT>"; // Keep the configured amount of kernels
   LastInstalledKernel "<STRING>"; // last installed kernel version
   VersionedKernelPackages "<LIST>"; // regular expressions to be protected from autoremoval (kernel uname will be appended)
   Protect-Kernels "<BOOL>"; // whether to protect installed kernels against autoremoval (default: true)
-
-  // Currently active snapshot
-  Snapshot "<STRING>";
 
   // Options for apt-get
   Get
@@ -104,7 +100,6 @@ APT
 
      Show-Upgraded "<BOOL>";
      Show-Versions "<BOOL>";
-     List-Columns "<BOOL>";
      Upgrade "<BOOL>";
      Only-Upgrade "<BOOL>";
      Upgrade-Allow-New "<BOOL>";
@@ -132,7 +127,6 @@ APT
         {
            APTAuth "<BOOL>";
            NonFreeFirmware "<BOOL>";
-           SignedBy "<BOOL>";
         };
      };
   };
@@ -176,7 +170,7 @@ APT
      DropTranslation "<BOOL>";
   };
 
-  Update "<BOOL>"
+  Update
   {
      Pre-Invoke {"touch /var/lib/apt/pre-update-stamp"; };
      Post-Invoke {"touch /var/lib/apt/post-update-stamp"; };
@@ -404,15 +398,6 @@ Acquire
     Override::Origin::* "<STRING>";
     Override::Label::* "<STRING>";
   };
-  Snapshots::URI
-  {
-    Host::* "<STRING>";
-    // Origin::Debian "https://snapshot.debian.org/snapshot/@SNAPSHOTID@/";
-    Origin::* "<STRING>";
-    Label::* "<STRING>";
-    Override::Origin::* "<STRING>";
-    Override::Label::* "<STRING>";
-  };
   Changelogs::AlwaysOnline "<BOOL>"; // even if the changelog file exists get it online (as the file is incomplete)
   Changelogs::AlwaysOnline::Origin::* "<BOOL>";
 };
@@ -487,9 +472,6 @@ Dir "<DIR>"
   {
      MountPath "/media/apt"; // Media AutoDetect mount path
   };
-
-  Boot "<DIR>";
-  Usr "<DIR>";
 };
 
 // Things that effect the APT dselect method
@@ -545,7 +527,7 @@ DPkg
 
    // controls if apt will apport on the first dpkg error or if it 
    // tries to install as many packages as possible
-   StopOnError "<BOOL>";
+   StopOnError "true";
 
    Progress-Fancy {
       progress-fg "<STRING>";
@@ -726,7 +708,6 @@ apt::system "<STRING>";
 apt::acquire::translation "<STRING>"; // deprecated in favor of Acquire::Languages
 apt::color::highlight "<STRING>";
 apt::color::neutral "<STRING>";
-apt::output-version "<INT>";
 
 dpkgpm::reporting-steps "<INT>";
 
@@ -767,7 +748,6 @@ apt::key::gpgcommand "<STRING>";
 apt::key::masterkeyring "<STRING>";
 apt::key::archivekeyringuri "<STRING>";
 apt::key::net-update-enabled "<STRING>";
-apt::key::assert-pubkey-algo "<STRING>";
 
 apt::ftparchive::release::patterns "<LIST>";
 apt::ftparchive::release::validtime "<INT>";
@@ -885,7 +865,6 @@ Rred::f "<BOOL>";
 Rred::Compress "<STRING>";
 
 APT::Internal::OpProgress::Absolute "<BOOL>";
-APT::Internal::OpProgress::EraseLines "<BOOL>";
 APT::Color "<BOOL>";
 
 update-manager::always-include-phased-updates "<BOOL>";

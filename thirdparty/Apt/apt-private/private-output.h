@@ -10,7 +10,6 @@
 #include <functional>
 #include <iostream>
 #include <string>
-#include <vector>
 
 // forward declaration
 class pkgCacheFile;
@@ -36,24 +35,16 @@ void ListSingleVersion(pkgCacheFile &CacheFile, pkgRecords &records,
 APT_PUBLIC void ShowBroken(std::ostream &out, CacheFile &Cache, bool const Now);
 APT_PUBLIC void ShowBroken(std::ostream &out, pkgCacheFile &Cache, bool const Now);
 
-APT_PUBLIC void ShowWithColumns(std::ostream &out, const std::vector<std::string> &List, size_t Indent, size_t ScreenWidth);
-
 template<class Container, class PredicateC, class DisplayP, class DisplayV> bool ShowList(std::ostream &out, std::string const &Title,
       Container const &cont,
       PredicateC Predicate,
       DisplayP PkgDisplay,
-      DisplayV VerboseDisplay,
-      std::string colorName = "APT::Color::Neutral")
+      DisplayV VerboseDisplay)
 {
    size_t const ScreenWidth = (::ScreenWidth > 3) ? ::ScreenWidth - 3 : 0;
    int ScreenUsed = 0;
    bool const ShowVersions = _config->FindB("APT::Get::Show-Versions", false);
-   bool const ListColumns = _config->FindB("APT::Get::List-Columns", _config->FindI("APT::Output-Version") >= 30);
    bool printedTitle = false;
-   std::vector<std::string> PackageList;
-
-   auto setColor = _config->FindI("APT::Output-Version") >= 30 ? _config->Find(colorName) : "";
-   auto resetColor = _config->FindI("APT::Output-Version") >= 30 ? _config->Find("APT::Color::Neutral") : "";
 
    for (auto const &Pkg: cont)
    {
@@ -68,7 +59,7 @@ template<class Container, class PredicateC, class DisplayP, class DisplayV> bool
 
       if (ShowVersions == true)
       {
-	 out << std::endl << "   " << setColor << PkgDisplay(Pkg) << resetColor;
+	 out << std::endl << "   " << PkgDisplay(Pkg);
 	 std::string const verbose = VerboseDisplay(Pkg);
 	 if (verbose.empty() == false)
 	    out << " (" << verbose << ")";
@@ -76,37 +67,24 @@ template<class Container, class PredicateC, class DisplayP, class DisplayV> bool
       else
       {
 	 std::string const PkgName = PkgDisplay(Pkg);
-	 if (ListColumns)
-	    PackageList.push_back(PkgName);
-	 else
+	 if (ScreenUsed == 0 || (ScreenUsed + PkgName.length()) >= ScreenWidth)
 	 {
-	    if (ScreenUsed == 0 || (ScreenUsed + PkgName.length()) >= ScreenWidth)
-	    {
-	       out << std::endl
-		   << "  ";
-	       ScreenUsed = 0;
-	    }
-	    else if (ScreenUsed != 0)
-	    {
-	       out << " ";
-	       ++ScreenUsed;
-	    }
-	    out << setColor << PkgName << resetColor;
-	    ScreenUsed += PkgName.length();
+	    out << std::endl << "  ";
+	    ScreenUsed = 0;
 	 }
+	 else if (ScreenUsed != 0)
+	 {
+	    out << " ";
+	    ++ScreenUsed;
+	 }
+	 out << PkgName;
+	 ScreenUsed += PkgName.length();
       }
    }
 
    if (printedTitle == true)
    {
       out << std::endl;
-      if (ListColumns && not PackageList.empty()) {
-	 out << setColor;
-	 ShowWithColumns(out, PackageList, 2, ScreenWidth);
-	 out << resetColor;
-      }
-      if (_config->FindI("APT::Output-Version") >= 30)
-	 out << std::endl;
       return false;
    }
    return true;
@@ -115,7 +93,6 @@ template<class Container, class PredicateC, class DisplayP, class DisplayV> bool
 void ShowNew(std::ostream &out,CacheFile &Cache);
 void ShowDel(std::ostream &out,CacheFile &Cache);
 void ShowKept(std::ostream &out,CacheFile &Cache, APT::PackageVector const &HeldBackPackages);
-void ShowPhasing(std::ostream &out, CacheFile &Cache, APT::PackageVector const &HeldBackPackages);
 void ShowUpgraded(std::ostream &out,CacheFile &Cache);
 bool ShowDowngraded(std::ostream &out,CacheFile &Cache);
 bool ShowHold(std::ostream &out,CacheFile &Cache);

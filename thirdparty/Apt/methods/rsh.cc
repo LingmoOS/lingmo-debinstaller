@@ -33,12 +33,12 @@
 #include <apt-pkg/strutl.h>
 
 #include "rsh.h"
-#include <cerrno>
-#include <csignal>
-#include <cstdarg>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
+#include <errno.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>

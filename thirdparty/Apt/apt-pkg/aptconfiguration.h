@@ -125,12 +125,8 @@ namespace Configuration {							/*{{{*/
 
 	std::string const getMachineID();
 
-#ifdef APT_COMPILING_APT
 	/** \return Whether we are running in a chroot */
-	APT_PUBLIC bool isChroot();
-	/** \return Check usr is merged or produce error. */
-	APT_PUBLIC bool checkUsrMerged();
-#endif
+	bool isChroot();
 	/*}}}*/
 }
 									/*}}}*/

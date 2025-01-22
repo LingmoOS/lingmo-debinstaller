@@ -6,7 +6,8 @@
 #include <string>
 #include <vector>
 
-#include <cstddef>
+#include <stddef.h>
+
 
 class Configuration;
 class OpProgress;

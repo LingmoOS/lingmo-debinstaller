@@ -47,9 +47,6 @@
 #include <apt-private/private-unmet.h>
 
 #include <algorithm>
-#include <cstddef>
-#include <cstdio>
-#include <cstdlib>
 #include <cstring>
 #include <iomanip>
 #include <iostream>
@@ -59,6 +56,9 @@
 #include <string>
 #include <vector>
 #include <regex.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include <apti18n.h>
@@ -745,7 +745,7 @@ static bool XVcg(CommandLine &CmdL)
 // ---------------------------------------------------------------------
 /* Dotty is the graphvis program for generating graphs. It is a fairly
    simple queuing algorithm that just writes dependencies and nodes. 
-   https://graphviz.org/ */
+   http://www.research.att.com/sw/tools/graphviz/ */
 static bool Dotty(CommandLine &CmdL)
 {
    pkgCacheFile CacheFile;

@@ -23,10 +23,10 @@
 #include <apt-pkg/strutl.h>
 #include <apt-pkg/tagfile.h>
 
-#include <cctype>
-#include <cstddef>
-#include <cstdio>
-#include <cstring>
+#include <ctype.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
 

@@ -14,9 +14,9 @@
 #include <apt-pkg/debversion.h>
 #include <apt-pkg/pkgcache.h>
 
-#include <cctype>
-#include <cstdlib>
-#include <cstring>
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 									/*}}}*/
 
 debVersioningSystem debVS;

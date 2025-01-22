@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-#include <cstddef>
+#include <stddef.h>
 
 #include <apti18n.h>
 									/*}}}*/

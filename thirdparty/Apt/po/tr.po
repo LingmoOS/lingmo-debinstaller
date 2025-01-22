@@ -1,7 +1,7 @@
 # Turkish translation for apt
 # Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # Copyright (c) 2013 Debian L10n Turkish 2013
-# Mert Dirik <mertdirik@gmail.com>, 2013-2023.
+# Mert Dirik <mertdirik@gmail.com>, 2013-2018.
 # Licensing is complex as the msgid come from several files, please see
 # the individual files for licensing information.
 #
@@ -9,10 +9,10 @@
 # Rosetta Contributors, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: apt 2.6.0\n"
+"Project-Id-Version: apt 1.0.5\n"
 "Report-Msgid-Bugs-To: APT Development Team <deity@lists.debian.org>\n"
-"POT-Creation-Date: 2024-04-14 16:52+0000\n"
-"PO-Revision-Date: 2023-04-19 15:15+0300\n"
+"POT-Creation-Date: 2023-03-06 12:29+0000\n"
+"PO-Revision-Date: 2018-01-03 16:32+0300\n"
 "Last-Translator: Mert Dirik <mertdirik@gmail.com>\n"
 "Language-Team: Debian l10n Turkish <debian-l10n-turkish@lists.debian.org>\n"
 "Language: tr\n"
@@ -20,8 +20,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n!=1;\n"
-"X-Generator: Poedit 2.2.1\n"
-"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Launchpad-Export-Date: 2013-02-04 12:16+0000\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: apt-pkg/acquire-item.cc
@@ -51,7 +51,7 @@ msgstr ""
 #: apt-pkg/acquire-item.cc
 #, c-format
 msgid "The repository '%s' is no longer signed."
-msgstr "'%s' deposu artık imzalı değil."
+msgstr "'%s' deposu imzalanmamış"
 
 #: apt-pkg/acquire-item.cc
 #, c-format
@@ -197,13 +197,16 @@ msgstr ""
 #. the time until the file will be valid - formatted in the same way as in
 #. the download progress display (e.g. 7d 3h 42min 1s)
 #: apt-pkg/acquire-item.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Release file for %s is expired (invalid since %s). Updates for this "
+#| "repository will not be applied."
 msgid ""
 "Release file for %s is not valid yet (invalid for another %s). Updates for "
 "this repository will not be applied."
 msgstr ""
-"%s konumundaki 'Release' dosyası ileri bir tarihte geçerli olacak (%s "
-"sonra). Bu deponun güncelleştirmeleri uygulanmayacak."
+"%s konumundaki 'Release' dosyasının vâdesi dolmuş (%s önce). Bu deponun "
+"güncelleştirmeleri uygulanmayacak."
 
 #: apt-pkg/acquire-item.cc
 #, c-format
@@ -273,10 +276,6 @@ msgid ""
 "The method '%s' is unsupported and disabled by default. Consider switching "
 "to http(s). Set Dir::Bin::Methods::%s to \"%s\" to enable it again."
 msgstr ""
-"'%s' indirme yöntemi desteklenmemektedir ve öntanımlı olarak devre dışı "
-"bırakılmıştır. Bunun yerine 'http(s)' yöntemine geçmeyi düşünebilirsiniz. "
-"Yine de bu yöntemi kullanmak istiyorsanız Dir::Bin::Methods::%s ayarını "
-"\"%s\" yaparak etkin hale getirebilirsiniz."
 
 #: apt-pkg/acquire-worker.cc
 #, c-format
@@ -506,8 +505,8 @@ msgid ""
 "Unable to locate any package files, perhaps this is not a Debian Disc or the "
 "wrong architecture?"
 msgstr ""
-"Hiç paket dosyası bulunamadı, bu disk bir Debian diski değil ya da yanlış "
-"mimariye sahip olabilir mi?"
+"Hiç paket dosyası bulunamadı. Belirttiğiniz disk bir Debian diski değil ya "
+"da yanlış mimariye sahip."
 
 #: apt-pkg/cdrom.cc
 #, c-format
@@ -693,9 +692,10 @@ msgid "Tar checksum failed, archive corrupted"
 msgstr "Tar sağlama toplamı başarısız, arşiv bozulmuş"
 
 #: apt-pkg/contrib/extracttar.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "Unknown TAR header type %u, member %s"
 msgid "Unknown TAR header type %u"
-msgstr "Bilinmeyen TAR başlığı türü %u"
+msgstr "Bilinmeyen TAR başlığı türü %u, üye %s"
 
 #: apt-pkg/contrib/fileutl.cc
 #, c-format
@@ -715,18 +715,18 @@ msgstr "Kilit dosyası %s açılamadı"
 #: apt-pkg/contrib/fileutl.cc
 #, c-format
 msgid "Not using locking for nfs mounted lock file %s"
-msgstr ""
-"NFS ile bağlanmış bölümdeki kilit dosyası %s için kilitleme kullanılmıyor"
+msgstr "nfs ile bağlanmış kilit dosyası %s için kilitleme kullanılmıyor"
 
 #: apt-pkg/contrib/fileutl.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "Could not get lock %s"
 msgid "Could not get lock %s. It is held by process %d"
-msgstr "%s kilidi alınamadı. %d süreci tarafından tutuluyor"
+msgstr "%s kilidi alınamadı"
 
 #: apt-pkg/contrib/fileutl.cc
 #, c-format
 msgid "Could not get lock %s. It is held by process %d (%s)"
-msgstr "%s kilidi alınamadı. %d süreci tarafından tutuluyor (%s)"
+msgstr ""
 
 #: apt-pkg/contrib/fileutl.cc
 #, c-format
@@ -738,8 +738,6 @@ msgid ""
 "Be aware that removing the lock file is not a solution and may break your "
 "system."
 msgstr ""
-"Kilit dosyasını silmenin bir çözüm olmadığını ve sisteminizi bozabileceğini "
-"göz önünde bulundurun."
 
 #: apt-pkg/contrib/fileutl.cc
 #, c-format
@@ -923,8 +921,6 @@ msgid ""
 "%s: Credentials for %s match, but the protocol is not encrypted. Annotate "
 "with %s:// to use."
 msgstr ""
-"%s: %s için kimlik bilgileri uyuşuyor, ancak protokol şifreli değil. "
-"Kullanmak için başına %s:// koyunuz."
 
 #: apt-pkg/contrib/progress.cc
 #, c-format
@@ -941,19 +937,21 @@ msgid "..."
 msgstr "..."
 
 #: apt-pkg/contrib/progress.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "%c%s... %u%%"
 msgid "%c%s... %llu/%llus"
-msgstr "%c%s... %llu/%llu sn."
+msgstr "%c%s... %u%%"
 
 #: apt-pkg/contrib/progress.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "%c%s... %u%%"
 msgid "%c%s... %llus"
-msgstr "%c%s... %llu sn."
+msgstr "%c%s... %u%%"
 
 #: apt-pkg/contrib/progress.cc
 #, c-format
 msgid "%c%s... %u%%"
-msgstr "%c%s... %%%u"
+msgstr "%c%s... %u%%"
 
 #. TRANSLATOR: d means days, h means hours, min means minutes, s means seconds
 #: apt-pkg/contrib/strutl.cc
@@ -999,9 +997,10 @@ msgid "Unparsable control file"
 msgstr "Ayrıştırılamayan 'control' dosyası"
 
 #: apt-pkg/deb/debindexfile.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "Could not get lock %s"
 msgid "Could not read meta data from %s"
-msgstr "%s üst verisi alınamadı"
+msgstr "%s kilidi alınamadı"
 
 #. TRANSLATOR: an identifier like Packages; Releasefile key indicating
 #. a file like main/binary-amd64/Packages; another identifier like Contents;
@@ -1070,22 +1069,27 @@ msgid "Unable to parse package file %s (%d)"
 msgstr "Paket dosyası (%s) ayrıştırılamadı (%d)"
 
 #: apt-pkg/deb/debsystem.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "Waiting for headers"
 msgid "Waiting for cache lock: %s"
-msgstr "Önbellek kilidi bekleniyor: %s"
+msgstr "Başlıklar bekleniyor"
 
 #: apt-pkg/deb/debsystem.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Unable to lock the administration directory (%s), is another process "
+#| "using it?"
 msgid ""
 "Unable to acquire the dpkg frontend lock (%s), is another process using it?"
 msgstr ""
-"dpkg önyüzü (%s) kilitlenemiyor, başka bir işlem tarafından kullanılıyor "
+"Yönetim dizini (%s) kilitlenemiyor, başka bir işlem tarafından kullanılıyor "
 "olmasın?"
 
 #: apt-pkg/deb/debsystem.cc
-#, c-format
+#, fuzzy, c-format
+#| msgid "Unable to lock the administration directory (%s), are you root?"
 msgid "Unable to acquire the dpkg frontend lock (%s), are you root?"
-msgstr "dpkg önyüzü (%s) kilitlenemiyor, root kullanıcısı mısınız?"
+msgstr "Yönetim dizini (%s) kilitlenemiyor, root kullanıcısı mısınız?"
 
 #. TRANSLATORS: the %s contains the recovery command, usually
 #. dpkg --configure -a
@@ -1546,8 +1550,6 @@ msgstr "İğne türü %s anlaşılamadı"
 msgid ""
 "%s: The special 'Pin-Priority: %s' can only be used for 'Package: *' records"
 msgstr ""
-"%s: Özel 'Pin-Priority: %s' ayarı yalnızca 'Package: *' kayıtlarında "
-"kullanılabilir"
 
 #: apt-pkg/policy.cc
 #, c-format
@@ -1590,8 +1592,10 @@ msgid "Unsupported file %s given on commandline"
 msgstr "Komut satırında desteklenmeyen bir dosya (%s) verildi"
 
 #: apt-pkg/srcrecords.cc
+#, fuzzy
+#| msgid "You must put some 'source' URIs in your sources.list"
 msgid "You must put some 'deb-src' URIs in your sources.list"
-msgstr "'sources.list' dosyası içine bazı 'deb-src' adresleri koymalısınız"
+msgstr "'sources.list' dosyası içine bazı 'source' adresleri koymalısınız"
 
 #: apt-pkg/tagfile.cc
 #, c-format
@@ -1893,19 +1897,6 @@ msgstr "Bozuk paketler"
 
 #: apt-private/private-install.cc
 msgid ""
-"Unmerged usr is no longer supported, use usrmerge to convert to a merged-usr "
-"system."
-msgstr ""
-
-#. TRANSLATORS: %s is a url to a page describing merged-usr (bookworm release notes)
-#: apt-private/private-install.cc
-#, fuzzy, c-format
-#| msgid "Selected %s for removal.\n"
-msgid "See %s for more details."
-msgstr "%s paketi kaldırma için seçildi.\n"
-
-#: apt-private/private-install.cc
-msgid ""
 "Unable to fetch some archives, maybe run apt-get update or try with --fix-"
 "missing?"
 msgstr ""
@@ -1954,24 +1945,12 @@ msgstr ""
 "Ne kadar ilginç... Boyutlar eşleşmedi, apt@packages.debian.org adresine e-"
 "posta atın"
 
-#: apt-private/private-install.cc
-#, fuzzy, c-format
-#| msgid "Downloading %s %s"
-msgid "  Download size: %sB / %sB\n"
-msgstr "İndiriliyor %s %s"
-
 #. TRANSLATOR: The required space between number and unit is already included
 #. in the replacement strings, so %sB will be correctly translate in e.g. 1,5 MB
 #: apt-private/private-install.cc
 #, c-format
 msgid "Need to get %sB/%sB of archives.\n"
 msgstr "%sB/%sB arşiv dosyası indirilecek.\n"
-
-#: apt-private/private-install.cc
-#, fuzzy, c-format
-#| msgid "Downloading %s %s"
-msgid "  Download size: %sB\n"
-msgstr "İndiriliyor %s %s"
 
 #. TRANSLATOR: The required space between number and unit is already included
 #. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
@@ -1980,54 +1959,12 @@ msgstr "İndiriliyor %s %s"
 msgid "Need to get %sB of archives.\n"
 msgstr "%sB arşiv dosyası indirilecek.\n"
 
+#. TRANSLATOR: The required space between number and unit is already included
+#. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
 #: apt-private/private-install.cc
 #, c-format
 msgid "After this operation, %sB of additional disk space will be used.\n"
 msgstr "Bu işlem tamamlandıktan sonra %sB ek disk alanı kullanılacak.\n"
-
-#. TRANSLATOR: The required space between number and unit is already included
-#. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
-#: apt-private/private-install.cc
-#, c-format
-msgid "Space needed: %sB / %sB available\n"
-msgstr ""
-
-#. TRANSLATOR: The required space between number and unit is already included
-#. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
-#: apt-private/private-install.cc
-#, c-format
-msgid "More space needed than available: %sB > %sB, installation may fail"
-msgstr ""
-
-#. TRANSLATOR: The required space between number and unit is already included
-#. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB -
-#. The first %s is the location of the boot directory (determined from Dir::Boot),
-#. and it tells the space being needed there.
-#. (We have two spaces to align with parent "space needed:"for /boot)
-#: apt-private/private-install.cc
-#, c-format
-msgid "in %s:  %sB / %sB available\n"
-msgstr ""
-
-#. TRANSLATOR: The required space between number and unit is already included
-#. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
-#. The first %s is the location of the boot directory (determined from Dir::Boot)
-#: apt-private/private-install.cc
-#, c-format
-msgid ""
-"More space needed in %s than available: %sB > %sB, installation may fail"
-msgstr ""
-
-#: apt-private/private-install.cc
-#, c-format
-msgid "Space needed: %sB\n"
-msgstr ""
-
-#: apt-private/private-install.cc
-#, fuzzy, c-format
-#| msgid "Stored label: %s\n"
-msgid "  Freed space: %sB\n"
-msgstr "Kayıtlı etiket: %s\n"
 
 #. TRANSLATOR: The required space between number and unit is already included
 #. in the replacement string, so %sB will be correctly translate in e.g. 1,5 MB
@@ -2044,16 +1981,6 @@ msgstr "Sadece Önemsiz seçeneği ayarlandı, ama bu önemsiz bir işlem değil
 msgid ""
 "Removing essential system-critical packages is not permitted. This might "
 "break the system."
-msgstr ""
-"Kritik sistem paketlerini kaldırmak sisteminizi bozabileceği için "
-"yasaklanmıştır."
-
-#: apt-private/private-install.cc
-msgid "Continue anyway?"
-msgstr ""
-
-#: apt-private/private-install.cc
-msgid "Continue?"
 msgstr ""
 
 #: apt-private/private-install.cc cmdline/apt-mark.cc
@@ -2146,16 +2073,16 @@ msgstr[0] "Bu paketi kaldırmak için '%s' komutunu kullanın."
 msgstr[1] "Bu paketleri kaldırmak için '%s' komutunu kullanın."
 
 #: apt-private/private-install.cc
+msgid "The following additional packages will be installed:"
+msgstr "Aşağıdaki ek paketler kurulacak:"
+
+#: apt-private/private-install.cc
 msgid "Suggested packages:"
 msgstr "Önerilen paketler:"
 
 #: apt-private/private-install.cc
 msgid "Recommended packages:"
 msgstr "Tavsiye edilen paketler:"
-
-#: apt-private/private-install.cc
-msgid "The following additional packages will be installed:"
-msgstr "Aşağıdaki ek paketler kurulacak:"
 
 #: apt-private/private-install.cc
 #, c-format
@@ -2292,50 +2219,12 @@ msgid "The following packages have unmet dependencies:"
 msgstr "Aşağıdaki paketler karşılanmamış bağımlılıklara sahip:"
 
 #: apt-private/private-output.cc
-#, fuzzy
-#| msgid "satisfy dependency strings"
-msgid "Unsatisfied dependencies:"
-msgstr "Bağımlılık dizgilerini karşıla"
-
-#: apt-private/private-output.cc
 msgid "The following NEW packages will be installed:"
 msgstr "Aşağıdaki YENİ paketler kurulacak:"
 
 #: apt-private/private-output.cc
-#, fuzzy
-#| msgid "Installing %s"
-msgid "Installing:"
-msgstr "%s kuruluyor"
-
-#: apt-private/private-output.cc
-#, fuzzy
-#| msgid "Total dependencies: "
-msgid "Installing dependencies:"
-msgstr "Toplam bağımlılıklar: "
-
-#: apt-private/private-output.cc
-msgid "REMOVING:"
-msgstr ""
-
-#: apt-private/private-output.cc
 msgid "The following packages will be REMOVED:"
 msgstr "Aşağıdaki paketler KALDIRILACAK:"
-
-#: apt-private/private-output.cc
-#, fuzzy
-#| msgid "The following packages have been kept back:"
-msgid "The following upgrades have been deferred due to phasing:"
-msgstr "Aşağıdaki paketlerin mevcut durumları korunacak:"
-
-#: apt-private/private-output.cc
-#, fuzzy
-#| msgid "The following packages have been kept back:"
-msgid "Not upgrading yet due to phasing:"
-msgstr "Aşağıdaki paketlerin mevcut durumları korunacak:"
-
-#: apt-private/private-output.cc
-msgid "Not upgrading:"
-msgstr ""
 
 #: apt-private/private-output.cc
 msgid "The following packages have been kept back:"
@@ -2346,22 +2235,8 @@ msgid "The following packages will be upgraded:"
 msgstr "Aşağıdaki paketler yükseltilecek:"
 
 #: apt-private/private-output.cc
-msgid "Upgrading:"
-msgstr ""
-
-#: apt-private/private-output.cc
-msgid "DOWNGRADING:"
-msgstr ""
-
-#: apt-private/private-output.cc
 msgid "The following packages will be DOWNGRADED:"
 msgstr "Aşağıdaki paketlerin SÜRÜMLERİ DÜŞÜRÜLECEK:"
-
-#: apt-private/private-output.cc
-#, fuzzy
-#| msgid "Pinned packages:"
-msgid "Changing held packages:"
-msgstr "Sabitlenmiş paketler:"
 
 #: apt-private/private-output.cc
 msgid "The following held packages will be changed:"
@@ -2381,19 +2256,9 @@ msgstr ""
 "Bu işlem ne yaptığınızı tam olarak bilmediğiniz takdirde YAPILMAMALIDIR!"
 
 #: apt-private/private-output.cc
-msgid "Summary:"
-msgstr ""
-
-#: apt-private/private-output.cc
 #, c-format
 msgid "%lu upgraded, %lu newly installed, "
 msgstr "%lu paket yükseltilecek, %lu yeni paket kurulacak, "
-
-#: apt-private/private-output.cc
-#, fuzzy, c-format
-#| msgid "Installing %s"
-msgid "Upgrading: %lu, Installing: %lu, "
-msgstr "%s kuruluyor"
 
 #: apt-private/private-output.cc
 #, c-format
@@ -2401,31 +2266,14 @@ msgid "%lu reinstalled, "
 msgstr "%lu paket yeniden kurulacak, "
 
 #: apt-private/private-output.cc
-#, fuzzy, c-format
-#| msgid "Installing %s"
-msgid "Reinstalling: %lu, "
-msgstr "%s kuruluyor"
-
-#: apt-private/private-output.cc
 #, c-format
 msgid "%lu downgraded, "
 msgstr "%lu paketin sürümü düşürülecek, "
 
 #: apt-private/private-output.cc
-#, fuzzy, c-format
-#| msgid "Downloading %s %s"
-msgid "Downgrading: %lu, "
-msgstr "İndiriliyor %s %s"
-
-#: apt-private/private-output.cc
 #, c-format
 msgid "%lu to remove and %lu not upgraded.\n"
 msgstr "%lu paket kaldırılacak ve %lu paket yükseltilmeyecek.\n"
-
-#: apt-private/private-output.cc
-#, c-format
-msgid "Removing: %lu, Not Upgrading: %lu\n"
-msgstr ""
 
 #: apt-private/private-output.cc
 #, c-format
@@ -2519,7 +2367,7 @@ msgstr "  Sürüm çizelgesi:"
 
 #: apt-private/private-show.cc
 msgid "phased"
-msgstr "aşamalı"
+msgstr ""
 
 #: apt-private/private-source.cc
 #, c-format
@@ -2652,8 +2500,6 @@ msgstr "İnşa bağımlılıklarının denetleneceği en az bir paket belirtilme
 msgid ""
 "Invalid operator '%c' at offset %d, did you mean '%c%c' or '%c='? - in: %s"
 msgstr ""
-"%2$d. sıradaki '%1$c' karakteri geçerli bir işleç değildir, '%3$c%4$c' ya da "
-"'%5$c='? mı demek istediniz? - dizgi: %6$s"
 
 #: apt-private/private-source.cc
 #, c-format
@@ -2697,12 +2543,6 @@ msgid ""
 msgstr ""
 "Oturum açma ayrıcalıklarını '%3$s' '%2$s' girdisinin içinde doğrudan "
 "belirtmek yerine '%1$s' kullanmayı tercih edin"
-
-#. TRANSLATOR: the first is manpage reference, the last the URI from a sources.list
-#: apt-private/private-update.cc
-#, c-format
-msgid "Missing Signed-By in the %s entry for '%s'"
-msgstr ""
 
 #: apt-private/private-update.cc
 #, c-format
@@ -3001,9 +2841,10 @@ msgid "Install new packages (pkg is libc6 not libc6.deb)"
 msgstr "Yeni paket kur (paket libc6.deb değil libc6 şeklinde olmalıdır)"
 
 #: cmdline/apt-get.cc
+#, fuzzy
+#| msgid "Install new packages (pkg is libc6 not libc6.deb)"
 msgid "Reinstall packages (pkg is libc6 not libc6.deb)"
-msgstr ""
-"Paketleri tekrar kur (paket adı libc6.deb değil libc6 şeklinde olmalıdır)"
+msgstr "Yeni paket kur (paket libc6.deb değil libc6 şeklinde olmalıdır)"
 
 #: cmdline/apt-get.cc
 msgid "Remove packages"
@@ -3030,8 +2871,10 @@ msgid "Configure build-dependencies for source packages"
 msgstr "Kaynak paketlerin inşa bağımlılıklarını yapılandır"
 
 #: cmdline/apt-get.cc
+#, fuzzy
+#| msgid "Building dependency tree"
 msgid "Satisfy dependency strings"
-msgstr "Bağımlılık dizgilerini karşıla"
+msgstr "Bağımlılık ağacı oluşturuluyor"
 
 #: cmdline/apt-get.cc
 msgid "Erase downloaded archive files"
@@ -3093,7 +2936,7 @@ msgstr ""
 
 #: cmdline/apt-helper.cc
 msgid "download the given uri to the target-path"
-msgstr "Verilen adresi (uri) hedef yola kaydet"
+msgstr "verilen adresi (uri) hedef yola kaydet"
 
 #: cmdline/apt-helper.cc
 msgid "lookup a SRV record (e.g. _http._tcp.ftp.debian.org)"
@@ -3101,7 +2944,7 @@ msgstr "Bir SRV kaydına bak (örneğin _http._tcp.ftp.debian.org)"
 
 #: cmdline/apt-helper.cc
 msgid "concatenate files, with automatic decompression"
-msgstr "Dosyaları birleştir, otomatik olarak aç"
+msgstr "dosyaları birleştir, otomatik olarak aç"
 
 #: cmdline/apt-helper.cc
 msgid "detect proxy using apt.conf"
@@ -3109,15 +2952,15 @@ msgstr "apt.conf kullanarak vekil sunucuyu algıla"
 
 #: cmdline/apt-helper.cc
 msgid "wait for system to be online"
-msgstr "Sistemin çevrimiçi olmasını bekle"
+msgstr "sistemin çevrimiçi olmasını bekle"
 
 #: cmdline/apt-helper.cc
 msgid "drop privileges before running given command"
-msgstr "Verilen komutu çalıştırmadan önce ayrıcalıkları düşür"
+msgstr ""
 
 #: cmdline/apt-helper.cc
 msgid "analyse a pattern"
-msgstr "Verilen örüntüyü çözümle"
+msgstr ""
 
 #: cmdline/apt-internal-planner.cc
 msgid ""
@@ -3162,11 +3005,13 @@ msgstr "%s zaten otomatik kurulmuş olarak ayarlı.\n"
 
 #: cmdline/apt-mark.cc
 msgid "No changes necessary"
-msgstr "Değişiklik gerekmiyor"
+msgstr ""
 
 #: cmdline/apt-mark.cc
+#, fuzzy
+#| msgid "The following NEW packages will be installed:"
 msgid "The following packages will be marked as automatically installed:"
-msgstr "Aşağıdaki paketler otomatik olarak kurulmuş olarak işaretlenecek:"
+msgstr "Aşağıdaki YENİ paketler kurulacak:"
 
 #: cmdline/apt-mark.cc
 #, c-format
@@ -3233,9 +3078,10 @@ msgid "Mark the given packages as manually installed"
 msgstr "Belirtilen paketleri elle kurulmuş olarak işaretle"
 
 #: cmdline/apt-mark.cc
+#, fuzzy
+#| msgid "Mark the given packages as automatically installed"
 msgid "Mark all dependencies of meta packages as automatically installed."
-msgstr ""
-"Meta paketlerin tüm bağımlılıklarını otomatik kurulmuş olarak işaretle."
+msgstr "Belirtilen paketleri otomatik kurulmuş olarak işaretle"
 
 #: cmdline/apt-mark.cc
 msgid "Mark a package as held back"
@@ -3308,17 +3154,21 @@ msgstr "Paket ayrıntılarını görüntüle"
 #. package stuff
 #: cmdline/apt.cc
 msgid "install packages"
-msgstr "Paket(ler)i kur"
+msgstr "paket kur"
 
 #: cmdline/apt.cc
+#, fuzzy
+#| msgid "install packages"
 msgid "reinstall packages"
-msgstr "Paket(ler)i tekrar kur"
+msgstr "paket kur"
 
 #: cmdline/apt.cc
 msgid "remove packages"
-msgstr "Paket(ler)i kaldır"
+msgstr "paket kaldır"
 
 #: cmdline/apt.cc
+#, fuzzy
+#| msgid "Remove automatically all unused packages"
 msgid "automatically remove all unused packages"
 msgstr "Kullanılmayan tüm paketleri otomatik olarak kaldır"
 
@@ -3329,20 +3179,22 @@ msgstr "Kullanılabilir paketlerin listesini güncelle"
 
 #: cmdline/apt.cc
 msgid "upgrade the system by installing/upgrading packages"
-msgstr "Sistemi yükselt (paket kurarak ve yükselterek)"
+msgstr "sistemi yükselt (paket kurarak ve yükselterek)"
 
 #: cmdline/apt.cc
 msgid "upgrade the system by removing/installing/upgrading packages"
-msgstr "Sistemi yükselt (paket kurarak, yükselterek ve kaldırarak)"
+msgstr "sistemi yükselt (paket kurarak, yükselterek ve kaldırarak)"
 
 #. misc
 #: cmdline/apt.cc
 msgid "edit the source information file"
-msgstr "Kaynak bilgi dosyasını düzenle"
+msgstr "kaynak bilgi dosyasını düzenle"
 
 #: cmdline/apt.cc
+#, fuzzy
+#| msgid "Failed to satisfy %s dependency for %s: %s"
 msgid "satisfy dependency strings"
-msgstr "Bağımlılık dizgilerini karşıla"
+msgstr "%2$s için %1$s bağımlılığı karşılanamadı: %3$s"
 
 #: dselect/install
 msgid "Bad default setting!"
@@ -3363,7 +3215,7 @@ msgstr ""
 
 #: dselect/install
 msgid "will be configured. This may result in duplicate errors"
-msgstr "Bu durum, mükerrer hata iletilerine ya da eksik bağımlılıkların neden"
+msgstr "Bu durum, çift hata iletilerine ya da eksik bağımlılıkların neden"
 
 #: dselect/install
 msgid "or errors caused by missing dependencies. This is OK, only the errors"
@@ -3723,7 +3575,7 @@ msgstr "Bağlantı başarısız"
 msgid "File has unexpected size (%llu != %llu). Mirror sync in progress?"
 msgstr ""
 "Dosya boyutu beklenenden farklı (%llu != %llu). Yansı güncelleme işlemi "
-"devam ediyor olabilir mi?"
+"devam ediyor olabilir."
 
 #: methods/basehttp.cc
 #, c-format
@@ -3992,11 +3844,6 @@ msgstr "Sorgu"
 msgid "Unable to invoke "
 msgstr "Çağrılamıyor "
 
-#: methods/gpgv.cc
-#, c-format
-msgid "untrusted public key algorithm: %s"
-msgstr ""
-
 #. TRANSLATORS: %s is a single techy word like 'NODATA'
 #: methods/gpgv.cc
 #, c-format
@@ -4029,14 +3876,11 @@ msgid ""
 "Key is stored in legacy trusted.gpg keyring (%s), see the DEPRECATION "
 "section in apt-key(8) for details."
 msgstr ""
-"Anahtar eski trusted.gpg anahtarlığında (%s) duruyor, ayrıntılar için apt-"
-"key(8) rehber sayfasına bakılabilir."
 
 #. TRANSLATORS: The second %s is the reason and is untranslated for repository owners.
 #: methods/gpgv.cc
-#, fuzzy, c-format
-#| msgid "Signature by key %s uses weak digest algorithm (%s)"
-msgid "Signature by key %s uses weak algorithm (%s)"
+#, c-format
+msgid "Signature by key %s uses weak digest algorithm (%s)"
 msgstr "%s anahtarının imzası zayıf bir özet algoritması kullanıyor (%s)"
 
 #: methods/gpgv.cc
@@ -4081,19 +3925,10 @@ msgstr "Bağlantı vaktinden önce kapandı"
 msgid "Empty files can't be valid archives"
 msgstr "Boş dosyalar geçerli birer arşiv dosyası olamazlar"
 
-#, fuzzy, c-format
-#~| msgid "  Installed: "
-#~ msgid "  Installed size: %sB\n"
-#~ msgstr "  Kurulu: "
-
-#, fuzzy
-#~| msgid "The following held packages will be changed:"
-#~ msgid "Changing held packages:Changing held packages:"
-#~ msgstr "Aşağıdaki eski sürümlerinde tutulan paketler değiştirilecek:"
-
 #~ msgid "Yes, do as I say!"
 #~ msgstr "Evet, söylediğim şekilde yap!"
 
+#, c-format
 #~ msgid ""
 #~ "You are about to do something potentially harmful.\n"
 #~ "To continue type in the phrase '%s'\n"
@@ -4103,6 +3938,7 @@ msgstr "Boş dosyalar geçerli birer arşiv dosyası olamazlar"
 #~ "Devam etmek için '%s' ifadesini yazınız\n"
 #~ " ?] "
 
+#, c-format
 #~ msgid "Line %u too long in source list %s."
 #~ msgstr "Kaynak listesinin (%2$s) %1$u numaralı satırı çok uzun."
 
@@ -4564,6 +4400,9 @@ msgstr "Boş dosyalar geçerli birer arşiv dosyası olamazlar"
 
 #~ msgid "Ignore unavailable target release '%s' of package '%s'"
 #~ msgstr "Mevcut olmayan hedef '%s' sürüm '%s' paketini ihmal et"
+
+#~ msgid "Downloading %s %s"
+#~ msgstr "İndiriliyor %s %s"
 
 #~ msgid "This is not a valid DEB archive, it has no '%s', '%s' or '%s' member"
 #~ msgstr ""

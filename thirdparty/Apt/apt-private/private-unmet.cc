@@ -10,7 +10,7 @@
 #include <apt-private/private-cacheset.h>
 #include <apt-private/private-unmet.h>
 
-#include <cstddef>
+#include <stddef.h>
 
 #include <iostream>
 

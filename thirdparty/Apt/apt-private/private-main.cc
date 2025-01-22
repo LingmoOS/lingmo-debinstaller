@@ -10,8 +10,8 @@
 #include <iostream>
 #include <locale>
 
-#include <csignal>
-#include <cstring>
+#include <signal.h>
+#include <string.h>
 #include <unistd.h>
 
 #include <apti18n.h>

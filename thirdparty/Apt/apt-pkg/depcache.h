@@ -41,7 +41,7 @@
 #include <apt-pkg/macros.h>
 #include <apt-pkg/pkgcache.h>
 
-#include <cstddef>
+#include <stddef.h>
 
 #include <list>
 #include <memory>
@@ -381,12 +381,6 @@ class APT_PUBLIC pkgDepCache : protected pkgCache::Namespace
    bool MarkAndSweep(InRootSetFunc &rootFunc);
    bool MarkAndSweep();
 
-   /** Check if the phased update is ready.
-    *
-    * \return \b false if this is a phased update that is not yet ready for us
-    */
-   bool PhasingApplied(PkgIterator Pkg) const;
-
    /** \name State Manipulators
     */
    // @{
@@ -490,9 +484,7 @@ class APT_PUBLIC pkgDepCache : protected pkgCache::Namespace
    virtual ~pkgDepCache();
 
    bool CheckConsistency(char const *const msgtag = "");
-#ifdef APT_COMPILING_APT
-   double BootSize(bool initrdOnly);
-#endif
+
    protected:
    // methods call by IsInstallOk
    bool IsInstallOkMultiArchSameVersionSynced(PkgIterator const &Pkg,

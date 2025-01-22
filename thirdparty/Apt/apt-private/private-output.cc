@@ -13,14 +13,14 @@
 #include <apt-private/private-cachefile.h>
 #include <apt-private/private-output.h>
 
-#include <csignal>
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
 #include <iomanip>
 #include <iostream>
 #include <langinfo.h>
 #include <regex.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 
@@ -86,7 +86,7 @@ bool InitOutput(std::basic_streambuf<char> * const out)			/*{{{*/
       SigWinch(0);
    }
 
-   if (isatty(STDOUT_FILENO) == 0 || not _config->FindB("APT::Color", true) || getenv("NO_COLOR") != nullptr || getenv("APT_NO_COLOR") != nullptr)
+   if (isatty(STDOUT_FILENO) == 0 || not _config->FindB("APT::Color", true) || getenv("NO_COLOR") != nullptr)
    {
       _config->Set("APT::Color", false);
       _config->Set("APT::Color::Highlight", "");
@@ -316,83 +316,6 @@ void ListSingleVersion(pkgCacheFile &CacheFile, pkgRecords &records,	/*{{{*/
    out << output;
 }
 									/*}}}*/
-// ShowWithColumns - Show a list in the style of ls			/*{{{*/
-// ---------------------------------------------------------------------
-/* This prints out a vector of strings with the given indent and in as
-   many columns as will fit the screen width.
-   
-   The output looks like:
-  abiword                debootstrap                  gir1.2-upowerglib-1.0
-  abiword-common         dh-make                      google-chrome-beta
-  abiword-plugin-grammar dmeventd                     gstreamer1.0-clutter-3.0
-  binfmt-support         dmsetup                      hostname
-  console-setup          evolution-data-server        iproute2
-  console-setup-linux    evolution-data-server-common
-  coreutils              ffmpeg
- */
-struct columnInfo
-{
-   bool ValidLen;
-   size_t LineWidth;
-   vector<size_t> RemainingWidths;
-};
-void ShowWithColumns(ostream &out, vector<string> const &List, size_t Indent, size_t ScreenWidth)
-{
-   constexpr size_t MinColumnWidth = 2;
-   constexpr size_t ColumnSpace = 1;
-
-   size_t const ListSize = List.size();
-   size_t const MaxScreenCols = (ScreenWidth - Indent) /
-         MinColumnWidth;
-   size_t const MaxNumCols = min(MaxScreenCols, ListSize);
-
-   vector<columnInfo> ColumnInfo(MaxNumCols);
-   for (size_t I = 0; I < MaxNumCols; ++I) {
-      ColumnInfo[I].ValidLen = true;
-      ColumnInfo[I].LineWidth = (I + 1) * MinColumnWidth;
-      ColumnInfo[I].RemainingWidths.resize(I + 1, MinColumnWidth);
-   }
-
-   for (size_t I = 0; I < ListSize; ++I) {
-      for (size_t J = 0; J < MaxNumCols; ++J) {
-         auto& Col = ColumnInfo[J];
-         if (!Col.ValidLen)
-            continue;
-
-         size_t Idx = I / ((ListSize + J) / (J + 1));
-         size_t RealColLen = List[I].size() + (Idx == J ? 0 : ColumnSpace);
-         if (Col.RemainingWidths[Idx] < RealColLen) {
-            Col.LineWidth += RealColLen - Col.RemainingWidths[Idx];
-            Col.RemainingWidths[Idx] = RealColLen;
-            Col.ValidLen = Col.LineWidth < ScreenWidth;
-         }
-      }
-   }
-   size_t NumCols = MaxNumCols;
-   while (NumCols > 1 && !ColumnInfo[NumCols - 1].ValidLen)
-      --NumCols;
-
-   size_t NumRows = ListSize / NumCols + (ListSize % NumCols != 0);
-   auto const &LineFormat = ColumnInfo[NumCols - 1];
-   for (size_t Row = 0; Row < NumRows; ++Row) {
-      size_t Col = 0;
-      size_t I = Row;
-      out << string(Indent, ' ');
-      while (true) {
-         out << List[I];
-
-         size_t CurLen = List[I].size();
-         size_t MaxLen = LineFormat.RemainingWidths[Col++];
-         I += NumRows;
-         if (I >= ListSize)
-            break;
-
-         out << string(MaxLen - CurLen, ' ');
-      }
-      out << endl;
-   }
-}
-									/*}}}*/
 // ShowBroken - Debugging aide						/*{{{*/
 // ---------------------------------------------------------------------
 /* This prints out the names of all the packages that are broken along
@@ -524,10 +447,8 @@ void ShowBroken(ostream &out, CacheFile &Cache, bool const Now)
 {
    if (Cache->BrokenCount() == 0)
       return;
-   if (_config->FindI("APT::Output-Version") < 30)
-      out << _("The following packages have unmet dependencies:") << endl;
-   else
-      out << _("Unsatisfied dependencies:") << endl;
+
+   out << _("The following packages have unmet dependencies:") << endl;
    SortedPackageUniverse Universe(Cache);
    for (auto const &Pkg: Universe)
       ShowBrokenPackage(out, &Cache, Pkg, Now);
@@ -537,10 +458,7 @@ void ShowBroken(ostream &out, pkgCacheFile &Cache, bool const Now)
    if (Cache->BrokenCount() == 0)
       return;
 
-   if (_config->FindI("APT::Output-Version") < 30)
-      out << _("The following packages have unmet dependencies:") << endl;
-   else
-      out << _("Unsatisfied dependencies:") << endl;
+   out << _("The following packages have unmet dependencies:") << endl;
    APT::PackageUniverse Universe(Cache);
    for (auto const &Pkg: Universe)
       ShowBrokenPackage(out, &Cache, Pkg, Now);
@@ -550,33 +468,17 @@ void ShowBroken(ostream &out, pkgCacheFile &Cache, bool const Now)
 void ShowNew(ostream &out,CacheFile &Cache)
 {
    SortedPackageUniverse Universe(Cache);
-   if (_config->FindI("APT::Output-Version") < 30) {
-      ShowList(out,_("The following NEW packages will be installed:"), Universe,
-	    [&Cache](pkgCache::PkgIterator const &Pkg) { return Cache[Pkg].NewInstall(); },
-	    &PrettyFullName,
-	    CandidateVersion(&Cache),
-	    "APT::Color::Green");
-      return;
-   }
-
-   ShowList(out,_("Installing:"), Universe,
-	 [&Cache](pkgCache::PkgIterator const &Pkg) { return Cache[Pkg].NewInstall() && (Cache[Pkg].Flags & pkgCache::Flag::Auto) == 0; },
+   ShowList(out,_("The following NEW packages will be installed:"), Universe,
+	 [&Cache](pkgCache::PkgIterator const &Pkg) { return Cache[Pkg].NewInstall(); },
 	 &PrettyFullName,
-	 CandidateVersion(&Cache),
-	 "APT::Color::Green");
-   ShowList(out,_("Installing dependencies:"), Universe,
-	 [&Cache](pkgCache::PkgIterator const &Pkg) { return Cache[Pkg].NewInstall() && Cache[Pkg].Flags & pkgCache::Flag::Auto;},
-	 &PrettyFullName,
-	 CandidateVersion(&Cache),
-	 "APT::Color::Green");
+	 CandidateVersion(&Cache));
 }
 									/*}}}*/
 // ShowDel - Show packages to delete					/*{{{*/
 void ShowDel(ostream &out,CacheFile &Cache)
 {
    SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30 ? _("The following packages will be REMOVED:") : _("REMOVING:");
-   ShowList(out,title, Universe,
+   ShowList(out,_("The following packages will be REMOVED:"), Universe,
 	 [&Cache](pkgCache::PkgIterator const &Pkg) { return Cache[Pkg].Delete(); },
 	 [&Cache](pkgCache::PkgIterator const &Pkg)
 	 {
@@ -585,29 +487,14 @@ void ShowDel(ostream &out,CacheFile &Cache)
 	       str.append("*");
 	    return str;
 	 },
-	 CandidateVersion(&Cache),
-	 "APT::Color::Red");
-}
-									/*}}}*/
-// ShowPhasing - Show packages kept due to phasing			/*{{{*/
-void ShowPhasing(ostream &out, CacheFile &Cache, APT::PackageVector const &HeldBackPackages)
-{
-   SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30
-	       ? _("The following upgrades have been deferred due to phasing:")
-	       : _("Not upgrading yet due to phasing:");
-   ShowList(out, title, HeldBackPackages,
-	    &AlwaysTrue,
-	    &PrettyFullName,
-	    CurrentToCandidateVersion(&Cache));
+	 CandidateVersion(&Cache));
 }
 									/*}}}*/
 // ShowKept - Show kept packages					/*{{{*/
 void ShowKept(ostream &out,CacheFile &Cache, APT::PackageVector const &HeldBackPackages)
 {
    SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30 ? _("The following packages have been kept back:") : _("Not upgrading:");
-   ShowList(out, title, HeldBackPackages,
+   ShowList(out,_("The following packages have been kept back:"), HeldBackPackages,
 	 &AlwaysTrue,
 	 &PrettyFullName,
 	 CurrentToCandidateVersion(&Cache));
@@ -617,15 +504,13 @@ void ShowKept(ostream &out,CacheFile &Cache, APT::PackageVector const &HeldBackP
 void ShowUpgraded(ostream &out,CacheFile &Cache)
 {
    SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30 ? _("The following packages will be upgraded:") : _("Upgrading:");
-   ShowList(out, title, Universe,
+   ShowList(out,_("The following packages will be upgraded:"), Universe,
 	 [&Cache](pkgCache::PkgIterator const &Pkg)
 	 {
 	    return Cache[Pkg].Upgrade() == true && Cache[Pkg].NewInstall() == false;
 	 },
 	 &PrettyFullName,
-	 CurrentToCandidateVersion(&Cache),
-	 "APT::Color::Green");
+	 CurrentToCandidateVersion(&Cache));
 }
 									/*}}}*/
 // ShowDowngraded - Show downgraded packages				/*{{{*/
@@ -634,23 +519,20 @@ void ShowUpgraded(ostream &out,CacheFile &Cache)
 bool ShowDowngraded(ostream &out,CacheFile &Cache)
 {
    SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30 ? _("The following packages will be DOWNGRADED:") : _("DOWNGRADING:");
-   return ShowList(out, title, Universe,
+   return ShowList(out,_("The following packages will be DOWNGRADED:"), Universe,
 	 [&Cache](pkgCache::PkgIterator const &Pkg)
 	 {
 	    return Cache[Pkg].Downgrade() == true && Cache[Pkg].NewInstall() == false;
 	 },
 	 &PrettyFullName,
-	 CurrentToCandidateVersion(&Cache),
-	 "APT::Color::Yellow");
+	 CurrentToCandidateVersion(&Cache));
 }
 									/*}}}*/
 // ShowHold - Show held but changed packages				/*{{{*/
 bool ShowHold(ostream &out,CacheFile &Cache)
 {
    SortedPackageUniverse Universe(Cache);
-   auto title = _config->FindI("APT::Output-Version") < 30 ? _("The following held packages will be changed:") : _("Changing held packages:");
-   return ShowList(out, title, Universe,
+   return ShowList(out,_("The following held packages will be changed:"), Universe,
 	 [&Cache](pkgCache::PkgIterator const &Pkg)
 	 {
 	    return Pkg->SelectedState == pkgCache::State::Hold &&
@@ -741,7 +623,6 @@ void Stats(ostream &out, pkgDepCache &Dep, APT::PackageVector const &HeldBackPac
    unsigned long Downgrade = 0;
    unsigned long Install = 0;
    unsigned long ReInstall = 0;
-   auto outVer = _config->FindI("APT::Output-Version");
    for (pkgCache::PkgIterator I = Dep.PkgBegin(); I.end() == false; ++I)
    {
       if (Dep[I].NewInstall() == true)
@@ -758,27 +639,21 @@ void Stats(ostream &out, pkgDepCache &Dep, APT::PackageVector const &HeldBackPac
       if (Dep[I].Delete() == false && (Dep[I].iFlags & pkgDepCache::ReInstall) == pkgDepCache::ReInstall)
 	 ReInstall++;
    }   
-   if (outVer >= 30) {
-      ioprintf(out, _("Summary:"));
-      ioprintf(out, "\n  ");
-   }
-   ioprintf(out,outVer < 30 ? _("%lu upgraded, %lu newly installed, ") : _("Upgrading: %lu, Installing: %lu, "),
+
+   ioprintf(out,_("%lu upgraded, %lu newly installed, "),
 	    Upgrade,Install);
    
    if (ReInstall != 0)
-      ioprintf(out,outVer < 30 ? _("%lu reinstalled, ") : _("Reinstalling: %lu, "),ReInstall);
+      ioprintf(out,_("%lu reinstalled, "),ReInstall);
    if (Downgrade != 0)
-      ioprintf(out,outVer < 30 ? _("%lu downgraded, ") : _("Downgrading: %lu, "),Downgrade);
+      ioprintf(out,_("%lu downgraded, "),Downgrade);
 
-   ioprintf(out, outVer < 30 ? _("%lu to remove and %lu not upgraded.\n") : _("Removing: %lu, Not Upgrading: %lu\n"),
+   ioprintf(out,_("%lu to remove and %lu not upgraded.\n"),
 	    Dep.DelCount(), HeldBackPackages.size());
-
-   if (Dep.BadCount() != 0) {
-      if (outVer >= 30)
-	 ioprintf(out, "  ");
+   
+   if (Dep.BadCount() != 0)
       ioprintf(out,_("%lu not fully installed or removed.\n"),
 	       Dep.BadCount());
-   }
 }
 									/*}}}*/
 // YnPrompt - Yes No Prompt.						/*{{{*/

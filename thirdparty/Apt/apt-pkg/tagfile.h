@@ -21,8 +21,8 @@
 
 #include <apt-pkg/macros.h>
 
-#include <cstdint>
-#include <cstdio>
+#include <stdint.h>
+#include <stdio.h>
 
 #include <list>
 #include <string>

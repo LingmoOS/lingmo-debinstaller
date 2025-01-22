@@ -89,8 +89,6 @@ static std::vector<aptDispatchWithHelp> GetCommands()			/*{{{*/
       {"policy",&Policy, nullptr},
       {"build-dep", &DoBuildDep,nullptr},
       {"clean", &DoClean, nullptr},
-      {"distclean", &DoDistClean, nullptr},
-      {"dist-clean", &DoDistClean, nullptr},
       {"autoclean", &DoAutoClean, nullptr},
       {"auto-clean", &DoAutoClean, nullptr},
       {"source", &DoSource, nullptr},

@@ -60,6 +60,7 @@ public:
     Q_ENUM(Status);
 
     explicit DebInstaller(QObject *parent = nullptr);
+    ~DebInstaller();
 
     QString fileName() const;
     void setFileName(const QString &fileName);

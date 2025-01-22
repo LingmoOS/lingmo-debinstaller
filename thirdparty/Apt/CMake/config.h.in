@@ -5,9 +5,6 @@
 /* Define if we have the timegm() function */
 #cmakedefine HAVE_TIMEGM
 
-/* Define if we have the gnutls library for TLS */
-#cmakedefine HAVE_GNUTLS
-
 /* Define if we have the zlib library for gzip */
 #cmakedefine HAVE_ZLIB
 
@@ -82,6 +79,3 @@
 
 /* Group of the root user */
 #cmakedefine ROOT_GROUP "${ROOT_GROUP}"
-
-/* Whether to check for and require merged usr if a usrmerge package is available. */
-#cmakedefine REQUIRE_MERGED_USR

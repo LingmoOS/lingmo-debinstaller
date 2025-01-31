@@ -1,3 +1,9 @@
+lingmo-debinstaller (2.9.0-1~lingmo3) helium; urgency=medium
+
+  * Release new version.
+
+ -- Lingmo OS Team <team@lingmo.org>  Fri, 31 Jan 2025 21:00:00 +0800
+
 lingmo-debinstaller (2.8.0) helium; urgency=medium
 
   * Fix some issues

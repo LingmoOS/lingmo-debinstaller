@@ -156,9 +156,9 @@ protected:
         m_detailPanel->setGeometry({r.width - detailW, 0, detailW, listBottom});
 
         m_countLabel->setGeometry({16, listBottom + 8, 200, 18});
-        m_logBtn    ->setGeometry({listW - 284, listBottom + 4, 100, 34});
-        m_removeBtn ->setGeometry({listW - 168, listBottom + 4, 120, 34});
-        m_updateBtn ->setGeometry({listW - 32,  listBottom + 4, 120, 34});
+        m_logBtn    ->setGeometry({listW - 372, listBottom + 4, 100, 34});
+        m_removeBtn ->setGeometry({listW - 264, listBottom + 4, 120, 34});
+        m_updateBtn ->setGeometry({listW - 136, listBottom + 4, 120, 34});
         m_statusLabel->setGeometry({16, listBottom + 30, r.width - 32, 16});
     }
 

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Package box body -->
+  <rect x="8" y="26" width="48" height="30" rx="4"
+        stroke="#2C3E50" stroke-width="2.5"/>
+  <!-- Box lid divider -->
+  <line x1="8" y1="38" x2="56" y2="38"
+        stroke="#2C3E50" stroke-width="2"/>
+  <!-- Box vertical segments -->
+  <line x1="27" y1="26" x2="27" y2="56"
+        stroke="#2C3E50" stroke-width="1.5"/>
+  <line x1="37" y1="26" x2="37" y2="56"
+        stroke="#2C3E50" stroke-width="1.5"/>
+  <!-- Down-arrow (install) -->
+  <line x1="32" y1="5" x2="32" y2="19"
+        stroke="#3385FF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M24 13 L32 21 L40 13"
+        stroke="#3385FF" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

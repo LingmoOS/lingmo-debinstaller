@@ -1,0 +1,22 @@
+Source: lingmo-debinstaller
+Section: admin
+Priority: optional
+Maintainer: Lingmo OS Team <team@lingmo.org>
+Build-Depends: cmake,
+               debhelper-compat (= 13),
+               lingmo-sdk-dev,
+               pkg-config
+Standards-Version: 4.7.2
+Homepage: https://github.com/LingmoOS/lingmo-debinstaller
+
+Package: lingmo-debinstaller
+Architecture: any
+Depends: lingmo-sdk-dev,
+         dpkg,
+         pkexec,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Lingmo OS Deb Package Installer
+ Install, update, and remove Debian packages (.deb files)
+ with a clean graphical interface. Supports inspecting package
+ metadata before installation and managing all installed packages.

@@ -1,0 +1,7 @@
+lingmo-debinstaller (1.0.0+lingmo5u1) unstable; urgency=medium
+
+  * Initial release.
+  * Install, update, and remove Debian packages with a graphical interface.
+  * Support drag-and-drop, package detail panel, and operation log dialog.
+
+ -- Lingmo OS Team <team@lingmo.org>  Mon, 02 Nov 2026 12:31:53 +0800

@@ -1,0 +1,100 @@
+# Lingmo Deb Installer translation template
+# Copyright (C) 2026 LingmoOS Contributors
+# This file is distributed under the same license as the lingmo-debinstaller package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lingmo-debinstaller 1.0.0\n"
+"Report-Msgid-Bugs-To: team@lingmo.org\n"
+"PO-Revision-Date: 2026-11-02 08:00+0800\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Deb Installer"
+msgstr "Deb 安装器"
+
+msgid "Install"
+msgstr "安装"
+
+msgid "Installed Packages"
+msgstr "已安装软件包"
+
+msgid "Open .deb File…"
+msgstr "打开 .deb 文件…"
+
+msgid "Open a .deb file to inspect and install it"
+msgstr "打开一个 .deb 文件以查看信息并安装"
+
+msgid "Open Debian Package"
+msgstr "打开 Debian 软件包"
+
+msgid "Debian Packages"
+msgstr "Debian 软件包"
+
+msgid "All Files"
+msgstr "所有文件"
+
+msgid "Package"
+msgstr "软件包"
+
+msgid "Version"
+msgstr "版本"
+
+msgid "Architecture"
+msgstr "架构"
+
+msgid "Maintainer"
+msgstr "维护者"
+
+msgid "Installed Size"
+msgstr "安装大小"
+
+msgid "Section"
+msgstr "分类"
+
+msgid "Depends"
+msgstr "依赖"
+
+msgid "Description"
+msgstr "描述"
+
+msgid "Install Package"
+msgstr "安装软件包"
+
+msgid "Search installed packages…"
+msgstr "搜索已安装的软件包…"
+
+msgid "Refresh"
+msgstr "刷新"
+
+msgid "Arch"
+msgstr "架构"
+
+msgid "Remove"
+msgstr "移除"
+
+msgid "Update"
+msgstr "更新"
+
+msgid "Remove Package"
+msgstr "移除软件包"
+
+msgid "Are you sure you want to remove "
+msgstr "确定要移除 "
+
+msgid "Authenticating…"
+msgstr "正在认证…"
+
+msgid "Loading package list…"
+msgstr "正在加载软件包列表…"
+
+msgid " packages installed"
+msgstr " 个已安装软件包"
+
+msgid " shown"
+msgstr " 已显示"
+
+msgid "Could not read this file"
+msgstr "无法读取此文件"

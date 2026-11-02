@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Deb Installer
+Name[zh_CN]=Deb 安装器
+Comment=Install, update, and remove Debian packages
+Comment[zh_CN]=安装、更新和卸载 Debian 软件包
+Exec=lingmo-debinstaller %F
+Icon=lingmo-debinstaller
+Categories=System;PackageManager;
+MimeType=application/vnd.debian.binary-package;
+Keywords=deb;dpkg;package;install;

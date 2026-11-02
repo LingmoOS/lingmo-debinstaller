@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: lingmo-debinstaller
+Upstream-Contact: Lingmo OS Team <team@lingmo.org>
+Source: https://github.com/LingmoOS/lingmo-debinstaller
+
+Files: *
+Copyright: 2026 LingmoOS Contributors
+License: GPL-3.0-or-later

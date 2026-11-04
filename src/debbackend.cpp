@@ -190,6 +190,131 @@ PackageDetail getPackageDetail(const std::string& name)
     return d;
 }
 
+// --- ListOperation ---
+
+static std::vector<InstalledPackage> parseInstalledPackages(const std::string& output)
+{
+    std::vector<InstalledPackage> packages;
+    std::istringstream stream(output);
+    std::string line;
+    while (std::getline(stream, line)) {
+        if (line.size() < 2 || line[0] != 'i' || line[1] != 'i')
+            continue;
+        size_t p0 = line.find('|');
+        if (p0 == std::string::npos) continue;
+        size_t p1 = line.find('|', p0 + 1);
+        if (p1 == std::string::npos) continue;
+        size_t p2 = line.find('|', p1 + 1);
+        if (p2 == std::string::npos) continue;
+        size_t p3 = line.find('|', p2 + 1);
+        if (p3 == std::string::npos) continue;
+        InstalledPackage pkg;
+        pkg.name         = line.substr(p0 + 1, p1 - p0 - 1);
+        pkg.version      = line.substr(p1 + 1, p2 - p1 - 1);
+        pkg.architecture = line.substr(p2 + 1, p3 - p2 - 1);
+        pkg.description  = line.substr(p3 + 1);
+        packages.push_back(std::move(pkg));
+    }
+    std::sort(packages.begin(), packages.end(),
+              [](const InstalledPackage& a, const InstalledPackage& b) {
+                  return a.name < b.name;
+              });
+    return packages;
+}
+
+struct ListOperation::Private {
+    Process process;
+    std::function<void(std::vector<InstalledPackage>)> onFinished;
+};
+
+ListOperation::ListOperation() : d(std::make_unique<Private>()) {}
+ListOperation::~ListOperation() = default;
+
+void ListOperation::start(std::function<void(std::vector<InstalledPackage>)> onFinished)
+{
+    d->onFinished = std::move(onFinished);
+    d->process.onFinished = [this](int, bool) {
+        auto packages = parseInstalledPackages(d->process.standardOutput());
+        if (d->onFinished)
+            d->onFinished(std::move(packages));
+    };
+    d->process.start("dpkg-query", {
+        "-W",
+        "-f=${db:Status-Abbrev}|${Package}|${Version}|${Architecture}|${Description:Summary}\\n"
+    });
+}
+
+bool ListOperation::isRunning() const { return d->process.isRunning(); }
+
+// --- DetailOperation ---
+
+static PackageDetail parsePackageDetail(const std::string& name, const std::string& output)
+{
+    PackageDetail result;
+    result.ok = true;
+    result.name = name;
+    std::istringstream stream(output);
+    std::string line, field, value;
+    auto commit = [&]() {
+        if (field.empty()) return;
+        if      (field == "Status")      result.status = trim(value);
+        else if (field == "Depends")     result.depends = trim(value);
+        else if (field == "Recommends")  result.recommends = trim(value);
+        else if (field == "Suggests")    result.suggests = trim(value);
+        else if (field == "Conflicts")   result.conflicts = trim(value);
+        else if (field == "Breaks")      result.breaks_ = trim(value);
+        else if (field == "Provides")    result.provides = trim(value);
+        else if (field == "Description") result.longDescription = trim(value);
+        field.clear();
+        value.clear();
+    };
+    while (std::getline(stream, line)) {
+        if (!line.empty() && line[0] == ' ') {
+            value += '\n';
+            value += trim(line);
+        } else {
+            commit();
+            auto colon = line.find(':');
+            if (colon != std::string::npos) {
+                field = trim(line.substr(0, colon));
+                value = trim(line.substr(colon + 1));
+            }
+        }
+    }
+    commit();
+    return result;
+}
+
+struct DetailOperation::Private {
+    Process process;
+    std::string packageName;
+    std::function<void(PackageDetail)> onFinished;
+};
+
+DetailOperation::DetailOperation() : d(std::make_unique<Private>()) {}
+DetailOperation::~DetailOperation() = default;
+
+void DetailOperation::start(const std::string& packageName,
+                             std::function<void(PackageDetail)> onFinished)
+{
+    d->packageName = packageName;
+    d->onFinished  = std::move(onFinished);
+    d->process.onFinished = [this](int code, bool crashed) {
+        PackageDetail result;
+        if (crashed || code != 0) {
+            result.name  = d->packageName;
+            result.error = "dpkg-query failed (exit " + std::to_string(code) + ")";
+        } else {
+            result = parsePackageDetail(d->packageName, d->process.standardOutput());
+        }
+        if (d->onFinished)
+            d->onFinished(std::move(result));
+    };
+    d->process.start("dpkg-query", {"-s", packageName});
+}
+
+bool DetailOperation::isRunning() const { return d->process.isRunning(); }
+
 // --- Helpers for async operations ---
 
 static void processLines(std::string& buffer, std::string_view data,

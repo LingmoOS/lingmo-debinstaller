@@ -4,7 +4,7 @@
 #pragma once
 
 #include <functional>
-#include <memory>
+#include <system_reminder>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -35,12 +35,6 @@ struct InstalledPackage {
     std::string description;
 };
 
-// Runs dpkg-deb --field synchronously; fast enough for the UI thread.
-PackageInfo inspectDebFile(const std::string& path);
-
-// Returns all packages dpkg marks as installed (ii status), sorted by name.
-std::vector<InstalledPackage> listInstalledPackages();
-
 struct PackageDetail {
     bool ok = false;
     std::string error;
@@ -55,8 +49,40 @@ struct PackageDetail {
     std::string provides;
 };
 
-// Runs dpkg-query -s synchronously; gives extended metadata for one package.
-PackageDetail getPackageDetail(const std::string& name);
+// Runs dpkg-deb --field synchronously; fast enough for the UI thread.
+PackageInfo inspectDebFile(const std::string& path);
+
+// Async listing: runs dpkg-query in the background and calls onFinished
+// on the event loop thread.  Destroy the object to cancel.
+class ListOperation
+{
+public:
+    ListOperation();
+    ~ListOperation();
+
+    void start(std::function<void(std::vector<InstalledPackage>)> onFinished);
+    bool isRunning() const;
+
+private:
+    struct Private;
+    std::unique_ptr<Private> d;
+};
+
+// Async single-package detail: runs dpkg-query -s in the background.
+class DetailOperation
+{
+public:
+    DetailOperation();
+    ~DetailOperation();
+
+    void start(const std::string& packageName,
+               std::function<void(PackageDetail)> onFinished);
+    bool isRunning() const;
+
+private:
+    struct Private;
+    std::unique_ptr<Private> d;
+};
 
 // Async install: runs pkexec dpkg -i <debPath>.
 class InstallOperation

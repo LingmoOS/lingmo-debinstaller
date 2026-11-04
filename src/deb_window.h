@@ -56,6 +56,8 @@ private:
     debinstaller::InstallOperation m_installOp;
     debinstaller::RemoveOperation  m_removeOp;
     debinstaller::UpdateOperation  m_updateOp;
+    debinstaller::ListOperation    m_listOp;
+    debinstaller::DetailOperation  m_detailOp;
     std::string m_installLog;
     std::string m_manageLog;
 };

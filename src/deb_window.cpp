@@ -113,6 +113,7 @@ void DebWindow::removePackage(const std::string& name)
                 m_manageLog += line; m_manageLog += '\n';
             },
             [this](bool ok, const std::string& msg) {
+                m_root->manageView()->setRunning(false);
                 m_root->manageView()->setStatus(msg);
                 m_root->manageView()->setLogAvailable(!m_manageLog.empty());
                 loadInstalledPackages();
@@ -149,15 +150,17 @@ void DebWindow::loadInstalledPackages()
 {
     m_root->manageView()->setRunning(true);
     m_root->manageView()->setStatus(tr("Loading package list\xe2\x80\xa6"));
-    auto packages = debinstaller::listInstalledPackages();
-    m_root->manageView()->setPackages(std::move(packages));
-    m_root->manageView()->setStatus({});
+    m_listOp.start([this](std::vector<debinstaller::InstalledPackage> packages) {
+        m_root->manageView()->setPackages(std::move(packages));
+        m_root->manageView()->setStatus({});
+    });
 }
 
 void DebWindow::loadPackageDetail(const std::string& name)
 {
-    auto detail = debinstaller::getPackageDetail(name);
-    m_root->manageView()->showDetail(detail, {});
+    m_detailOp.start(name, [this](debinstaller::PackageDetail detail) {
+        m_root->manageView()->showDetail(detail, {});
+    });
 }
 
 void DebWindow::showInstallLog()

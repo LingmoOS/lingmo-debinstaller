@@ -1,3 +1,12 @@
+lingmo-debinstaller (1.0.4+lingmo5u1) unstable; urgency=medium
+
+  * fix: add missing base/i18n.h include in all UI headers to resolve
+    'tr' not declared in 'Lingmo::i18n' build errors
+  * fix: add missing ui/window.h include in operation_log_dialog.h to
+    resolve incomplete type 'Lingmo::ui::Window' build error
+
+ -- Lingmo OS Team <team@lingmo.org>  Wed, 05 Nov 2026 03:35:00 +0800
+
 lingmo-debinstaller (1.0.3+lingmo5u1) unstable; urgency=medium
 
   * fix: replace garbled system_reminder include with <system_reminder>.

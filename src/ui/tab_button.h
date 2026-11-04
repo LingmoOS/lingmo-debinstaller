@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "base/i18n.h"
+
 #include <functional>
 #include <string>
 

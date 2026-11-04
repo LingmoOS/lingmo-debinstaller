@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "base/i18n.h"
+
 #include "install_view.h"
 #include "manage_view.h"
 #include "tab_button.h"

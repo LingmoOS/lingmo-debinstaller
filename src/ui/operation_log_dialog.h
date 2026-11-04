@@ -3,7 +3,10 @@
 
 #pragma once
 
+#include "base/i18n.h"
+
 #include "ui/dialog_window.h"
+#include "ui/window.h"
 #include "ui/text_area.h"
 
 #include <string>

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "base/i18n.h"
+
 #include "../debbackend.h"
 #include "drop_zone.h"
 #include "info_panel.h"

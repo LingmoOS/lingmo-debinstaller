@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "base/i18n.h"
+
 #include "ui/file_drop_area.h"
 #include "ui/painter.h"
 #include "ui/theme.h"
